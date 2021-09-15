@@ -24,14 +24,17 @@ class SearchBar extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: const EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10,top: 4),
           child: TextField(
             //controller: controller,
+            textAlign: TextAlign.start,
+
 
             onChanged: (value) {
 
             },
             decoration: InputDecoration(
+
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -45,6 +48,7 @@ class SearchBar extends StatelessWidget {
               ),
               suffixIcon: Icon(icon),
               contentPadding: EdgeInsets.only(top: 8),
+
               // border: OutlineInputBorder(
               //   borderRadius: BorderRadius.circular(8),
               // ),

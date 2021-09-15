@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/Model/dart/tabbar.dart';
+import 'package:invoiceapp/Ui/addclient.dart';
+import 'package:invoiceapp/Ui/businessdetail.dart';
+import 'package:invoiceapp/Ui/editinvice.dart';
 import 'package:invoiceapp/Ui/home.dart';
 import 'package:invoiceapp/constant.dart';
 class BottomTab extends StatefulWidget {
@@ -14,9 +17,9 @@ class _BottomTab extends State<BottomTab> {
 
   List _pages = [
     HomeScreen(),
-    Text("Order"),
-    Text("Notfication"),
-    Text("More"),
+    EditInvoiceScreen(),
+    BusinessDetailScreen(),
+    AddClientScreen(),
   ];
 
   _changeIndex(int index) {

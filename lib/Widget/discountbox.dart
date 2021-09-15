@@ -43,8 +43,8 @@ class DiscountBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(taxPrice,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
-                Text(tPrice1,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
+                Text(taxPrice,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                Text(tPrice1,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
 
               ],
             ),
@@ -54,8 +54,8 @@ class DiscountBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(totalPrice,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
-                Text(totlPrice1,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
+                Text(totalPrice,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                Text(totlPrice1,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
 
               ],
             ),
@@ -65,8 +65,8 @@ class DiscountBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(paymentPrice,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
-                Text(payPrice1,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w700),),
+                Text(paymentPrice,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                Text(payPrice1,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
 
               ],
             ),
