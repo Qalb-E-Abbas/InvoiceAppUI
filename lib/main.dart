@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Model/dart/bottomNavigation.dart';
 import 'package:invoiceapp/Ui/home.dart';
 
 void main() {
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: BottomTab(),
 
     );
   }
