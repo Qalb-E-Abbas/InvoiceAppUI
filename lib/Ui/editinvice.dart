@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Model/dart/Tabbar2.dart';
+import 'package:invoiceapp/Model/dart/editinvoicetabbar.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 class EditInvoiceScreen extends StatefulWidget {
   const EditInvoiceScreen({Key? key}) : super(key: key);

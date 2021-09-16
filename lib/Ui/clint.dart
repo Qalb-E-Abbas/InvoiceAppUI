@@ -46,7 +46,19 @@ class _ClientScreenState extends State<ClientScreen> {
               ),
               Utiles.getStyledTextField(
                   controller: _clientNameController,
-                  hint: "Enter phone number", isNumber: false),
+                  hint: "Client1", isNumber: false),
+              SizedBox(
+                height: 10,
+              ),
+              Utiles.getStyledTextField(
+                  controller: _clientNameController,
+                  hint: "Client2", isNumber: false),
+              SizedBox(
+                height: 10,
+              ),
+              Utiles.getStyledTextField(
+                  controller: _clientNameController,
+                  hint: "Client3", isNumber: false),
 
               SizedBox(
                 height: 20,
