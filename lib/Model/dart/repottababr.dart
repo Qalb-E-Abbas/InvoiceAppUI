@@ -55,12 +55,12 @@ class _ReportTabBarState extends State<ReportTabBar> with TickerProviderStateMix
                   tabs: [
                     // first tab [you can add an icon using the icon property]
                     Tab(
-                      text: 'Edit Invoice',
+                      text: 'Paid',
                     ),
 
                     // second tab [you can add an icon using the icon property]
                     Tab(
-                      text: 'Preview invoice',
+                      text: 'Client',
                     ),
 
                   ],
