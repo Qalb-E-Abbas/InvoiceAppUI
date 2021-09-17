@@ -18,6 +18,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
       height: MediaQuery.of(context).size.height,
       width:MediaQuery.of(context).size.width,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Ibox(text: "Add Tax"),
           Padding(
@@ -25,10 +26,13 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Tax",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
-                    Text("on the total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                    Text("Tax",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+                    Text("on the total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
 
                   ])),
+          SizedBox(
+            height: 20,
+          ),
           DropDownField(
             hint: "Choose Tax type",
           ),
@@ -37,7 +41,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Text("Label",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+            child: Text("Label",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           SizedBox(
             height: 20,
@@ -48,7 +52,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Text("Rate",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+            child: Text("Rate",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           Utiles.getStyledTextField(controller: _rateController, hint: "Enter Rate", isNumber: false),
 

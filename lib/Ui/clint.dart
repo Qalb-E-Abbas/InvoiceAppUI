@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Ui/businessinformation.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
 import 'package:invoiceapp/Widget/button.dart';
@@ -21,7 +22,9 @@ class _ClientScreenState extends State<ClientScreen> {
         backgroundColor: Colors.white,
         child: FloatingActionButton(
 
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>BusinessInformationScreen()));
+          },
           backgroundColor: AppColors.primeryColor,
           child: Icon(Icons.add),
         ),
@@ -33,7 +36,7 @@ class _ClientScreenState extends State<ClientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Ibox(text: "Business Details"),
+              Ibox(text: "Client"),
               SizedBox(
                 height: 30,
               ),

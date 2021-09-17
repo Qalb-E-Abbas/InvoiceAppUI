@@ -18,6 +18,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
       height: MediaQuery.of(context).size.height,
       width:MediaQuery.of(context).size.width,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Ibox(text: "Add Discount"),
           Padding(
@@ -25,8 +26,8 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Discunt",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
-                    Text("Flat Amount",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                    Text("Discunt",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+                    Text("Flat Amount",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
 
                   ])),
           SizedBox(
@@ -38,7 +39,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Text("Add Percentage Value",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+            child: Text("Add Percentage Value",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           SizedBox(
             height: 20,

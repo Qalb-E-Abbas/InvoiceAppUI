@@ -18,6 +18,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       height: MediaQuery.of(context).size.height,
       width:MediaQuery.of(context).size.width,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Ibox(text: "Payment"),
           Padding(
@@ -25,8 +26,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
-                    Text("\$35.0",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+                    Text("Total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+                    Text("\$35.0",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
 
                   ])),
           SizedBox(
@@ -34,7 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Text("Total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w300),),
+            child: Text("Paid",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           SizedBox(
             height: 20,
