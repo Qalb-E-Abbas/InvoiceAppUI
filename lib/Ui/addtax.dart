@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
 import 'package:invoiceapp/Widget/dropdown.dart';
+import 'package:invoiceapp/constant.dart';
 class AddTaxScreen extends StatefulWidget {
   const AddTaxScreen({Key? key}) : super(key: key);
 
@@ -33,9 +34,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
           SizedBox(
             height: 20,
           ),
-          DropDownField(
-            hint: "Choose Tax type",
-          ),
+          Utiles.getStyledTextField(controller: _labelController, hint: "Tax Name", isNumber: false),
           SizedBox(
             height: 10,
           ),
@@ -55,6 +54,32 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
             child: Text("Rate",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           Utiles.getStyledTextField(controller: _rateController, hint: "Enter Rate", isNumber: false),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.3,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      side: BorderSide(color: AppColors.primeryColor)
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    "Save",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500),
+                  ),
+                  color: AppColors.primeryColor,
+                  onPressed: (){
+                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>ClientScreen()));
+                  },
+                ),
+              ),
+            ),
+          )
 
 
         ],

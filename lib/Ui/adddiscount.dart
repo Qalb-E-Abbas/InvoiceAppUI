@@ -52,6 +52,33 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
             padding: const EdgeInsets.only(left: 10,right: 10),
             child: Text("Note:Percentage value must be valid number",style: TextStyle(color: AppColors.primeryColor,fontSize: 14,fontWeight: FontWeight.w300),),
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.3,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      side: BorderSide(color: AppColors.primeryColor)
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    "Save",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500),
+                  ),
+                  color: AppColors.primeryColor,
+                  onPressed: (){
+                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>ClientScreen()));
+                  },
+                ),
+              ),
+            ),
+          )
+
 
 
 
