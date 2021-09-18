@@ -26,7 +26,7 @@ class _ReportTabBarState extends State<ReportTabBar> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         height: MediaQuery.of(context).size.height,
         color:  Colors.white,

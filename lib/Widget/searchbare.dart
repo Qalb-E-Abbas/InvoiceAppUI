@@ -24,7 +24,7 @@ class SearchBar extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: const EdgeInsets.only(left: 10,top: 4),
+          padding: const EdgeInsets.only(left: 10,top: 3),
           child: TextField(
             //controller: controller,
             textAlign: TextAlign.start,
@@ -45,6 +45,7 @@ class SearchBar extends StatelessWidget {
               hintStyle: TextStyle(
 
                 fontSize: 14,
+                fontWeight: FontWeight.bold
               ),
               suffixIcon: Icon(icon),
               contentPadding: EdgeInsets.only(top: 8),

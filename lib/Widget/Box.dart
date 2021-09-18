@@ -4,7 +4,12 @@ import '../constant.dart';
 class Ibox extends StatelessWidget {
   String text;
   //var Icon;
+  Expanded getTitle() {
+    return new Expanded(
 
+        child: Center(child: new Text(text, style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)))
+    );
+  }
   Ibox({required this.text, //this.Icon
    });
 
@@ -20,24 +25,17 @@ class Ibox extends StatelessWidget {
         ),
         color:AppColors.primeryColor,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50,left: 20),
-            child: Row(
-              children: [
-                Icon(Icons.menu,color: Colors.white,),
-                SizedBox(
-                  width: 150,
-                ),
-                Text(text,style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),
-              ],
-            ),
-          ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 30,left: 10,right:10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.arrow_back,color: Colors.white,),
+            getTitle(),
+            Text("      ",),
 
-
-        ],
+          ],
+        ),
       ),
 
 

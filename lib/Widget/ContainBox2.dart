@@ -17,7 +17,7 @@ class PaidContainerBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        height: MediaQuery.of(context).size.height*0.16,
+        height: MediaQuery.of(context).size.height*0.167,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
@@ -40,13 +40,13 @@ class PaidContainerBox extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 10,
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(text,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),),
               ),
+              SizedBox(height: 5,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -54,7 +54,7 @@ class PaidContainerBox extends StatelessWidget {
                   children: [
                     Text(price,style: TextStyle(color: AppColors.primeryColor,fontSize: 16,fontWeight: FontWeight.w700),),
                     MaterialButton(onPressed: (){},
-                      height: 35,
+                      height: 30,
                       minWidth: 65,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),

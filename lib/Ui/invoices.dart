@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/Widget/ContainBox.dart';
+import 'package:invoiceapp/Widget/ContainBox2.dart';
+import 'package:invoiceapp/Widget/containerbox3.dart';
 class ALLInvoiceScreen extends StatefulWidget {
   const ALLInvoiceScreen({Key? key}) : super(key: key);
 
@@ -22,13 +24,29 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                  itemCount: 8,
+                  itemCount: 4,
                   itemBuilder: (BuildContext context,int index){
-                    return ContainerBox(
-                      ClientName: "ClientName",
-                      icon: Icons.edit,
-                      text: "INV001",
-                      price: "23 ",
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: ContainerBox3(
+                            ClientName: "Client Name",
+                            icon: Icons.edit,
+                            text: "INV001",
+                            price: "23 ",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10,top: 10),
+                          child: PaidContainerBox(
+                            ClientName: "Client Name",
+                            icon: Icons.edit,
+                            text: "INV001",
+                            price: "23 ",
+                          ),
+                        ),
+                      ],
                     );
                   }
               ),

@@ -14,7 +14,7 @@ class Ibox3 extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Container(
-        height: MediaQuery.of(context).size.height*0.16,
+        height: MediaQuery.of(context).size.height*0.167,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),

@@ -25,11 +25,14 @@ class _OutStandingScreenState extends State<OutStandingScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: 8,
                     itemBuilder: (BuildContext context,int index){
-                      return ContainerBox(
-                        ClientName: "ClientName",
-                        icon: Icons.edit,
-                        text: "INV001",
-                        price: "23 ",
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: ContainerBox(
+                          ClientName: "ClientName",
+                          icon: Icons.edit,
+                          text: "INV001",
+                          price: "23 ",
+                        ),
                       );
                     }
                 ),

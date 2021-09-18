@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/constant.dart';
-class ContainerBox extends StatelessWidget {
+class ContainerBox3 extends StatelessWidget {
   String ClientName;
   var icon;
   String text;
   String price;
 
-  ContainerBox({
+  ContainerBox3({
     required this.ClientName, this.icon, required this.text, required this.price
-});
+  });
 
 
 
@@ -42,7 +42,7 @@ class ContainerBox extends StatelessWidget {
 
 
               Padding(
-                  padding: const EdgeInsets.only(left: 10,right: 30),
+                  padding: const EdgeInsets.only(left: 10,right: 10),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -54,7 +54,7 @@ class ContainerBox extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 5),
                           child: MaterialButton(onPressed: (){},
                             height: 30,
-                            minWidth: 110,
+                            minWidth: 40,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text("Mark as paid",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500),),

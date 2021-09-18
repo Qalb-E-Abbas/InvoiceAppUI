@@ -29,7 +29,7 @@ class _TabBarScreenState extends State<TabBarScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         height: MediaQuery.of(context).size.height,
         color:  Colors.white,
@@ -58,7 +58,7 @@ class _TabBarScreenState extends State<TabBarScreen> with TickerProviderStateMix
                 tabs: [
                   // first tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'ALl Invoices',
+                    text: 'All Invoices',
                   ),
 
                   // second tab [you can add an icon using the icon property]
@@ -66,7 +66,7 @@ class _TabBarScreenState extends State<TabBarScreen> with TickerProviderStateMix
                     text: 'Outstanding',
                   ),
                   Tab(
-                    text: 'Pad Invoices',
+                    text: 'Paid Invoices',
                   ),
                 ],
               ),

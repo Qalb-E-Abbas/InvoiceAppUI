@@ -25,11 +25,14 @@ class _PaidInvoiceScreenState extends State<PaidInvoiceScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: 8,
                     itemBuilder: (BuildContext context,int index){
-                      return PaidContainerBox(
-                        ClientName: "ClientName",
-                        icon: Icons.edit,
-                        text: "INV001",
-                        price: "23 ",
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: PaidContainerBox(
+                          ClientName: "Client Name",
+                          icon: Icons.edit,
+                          text: "INV001",
+                          price: "23 ",
+                        ),
                       );
                     }
                 ),

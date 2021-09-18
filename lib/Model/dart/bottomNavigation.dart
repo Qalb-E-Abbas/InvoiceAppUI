@@ -37,6 +37,8 @@ class _BottomTab extends State<BottomTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
+
       body: Center(child: _pages[_selectedTabIndex]),
       bottomNavigationBar: bottomNavigationBar,
     );
@@ -45,16 +47,19 @@ class _BottomTab extends State<BottomTab> {
   Widget get bottomNavigationBar {
     return Container(
         decoration: BoxDecoration(
+          color: Colors.grey[300],
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              topRight: Radius.circular(45), topLeft: Radius.circular(45)),
 
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
           ),
           child: BottomNavigationBar(
+            showSelectedLabels: false,   // <-- HERE
+            showUnselectedLabels: false,
             backgroundColor: AppColors.primeryColor,
             currentIndex: _selectedTabIndex,
             onTap: _changeIndex,
@@ -63,22 +68,22 @@ class _BottomTab extends State<BottomTab> {
             unselectedFontSize: 12,
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white,
-            showUnselectedLabels: true,
+
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesAudience),color: Colors.white,),
+                icon: ImageIcon(AssetImage(Assets.imagesCustomer),color: Colors.white,size: 27,),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesAudience),color: Colors.white,size: 25,),
+                icon: ImageIcon(AssetImage(Assets.imagesCustomer),color: Colors.white,size: 27,),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesChart),color: Colors.white,),
+                icon: ImageIcon(AssetImage(Assets.imagesChart),color: Colors.white,size: 25,),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(Assets.imagesSettings,),color: Colors.white,), title: Text('')),
+                  icon: ImageIcon(AssetImage(Assets.imagesSettings,),color: Colors.white,size: 25,), title: Text('')),
             ],
           ),
         ));

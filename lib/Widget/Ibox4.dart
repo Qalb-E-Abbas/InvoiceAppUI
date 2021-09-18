@@ -7,18 +7,17 @@ class Ibox4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height*0.06,
+      height: MediaQuery.of(context).size.height*0.07,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3),
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
           children: [
-            Text(text,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),),
+            Text(text,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),textAlign: TextAlign.center),
           ],
         ),
       ),
