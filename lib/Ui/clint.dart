@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Ui/adddiscount.dart';
+import 'package:invoiceapp/Ui/additems.dart';
+import 'package:invoiceapp/Ui/addtax.dart';
 import 'package:invoiceapp/Ui/businessinformation.dart';
+import 'package:invoiceapp/Ui/payment.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
 import 'package:invoiceapp/Widget/button.dart';
@@ -69,8 +73,10 @@ class _ClientScreenState extends State<ClientScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Button(
-                  pressed: (){},
-                    text: "import from contact", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
+                  pressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddItemsScreen()));
+                  },
+                    text: "Choose Client", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
               )
             ],
           ),

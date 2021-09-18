@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Ui/clint.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
 import 'package:invoiceapp/constant.dart';
@@ -21,7 +22,7 @@ class _ChooseClientScreen1State extends State<ChooseClientScreen1> {
         child: FloatingActionButton(
 
           onPressed: (){
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=>BusinessInformationScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ClientScreen()));
           },
           backgroundColor: AppColors.primeryColor,
           child: Icon(Icons.add),

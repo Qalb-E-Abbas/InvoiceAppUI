@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:invoiceapp/Ui/addtax.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
 import 'package:invoiceapp/constant.dart';
@@ -70,7 +71,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     ),
                     color: AppColors.primeryColor,
                     onPressed: (){
-                      //Navigator.push(context, MaterialPageRoute(builder: (context)=>ClientScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTaxScreen()));
                     },
                   ),
                 ),

@@ -26,7 +26,7 @@ class _BusinessInformationScreenState extends State<BusinessInformationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: InkWell(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InvoiceNumberScreen()));
+
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height*0.19,

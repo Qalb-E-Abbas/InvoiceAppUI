@@ -27,7 +27,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Ibox(text: "Business Details"),
+            Ibox(text: "Add New client"),
             SizedBox(
               height: 30,
             ),
@@ -99,8 +99,10 @@ class _AddClientScreenState extends State<AddClientScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Button(
-                pressed: (){},
-                  text: "import from contact", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
+                pressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddClientScreen()));
+                },
+                  text: "Save Client", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
             )
 
           ],

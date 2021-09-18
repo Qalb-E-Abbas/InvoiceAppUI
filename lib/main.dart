@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invoiceapp/Model/dart/bottomNavigation.dart';
 import 'package:invoiceapp/Ui/additems.dart';
 import 'package:invoiceapp/Ui/home.dart';
+import 'package:invoiceapp/Ui/payment.dart';
 import 'package:invoiceapp/Ui/report.dart';
 
 void main() {
@@ -13,9 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReportScreen(),
-      //AddItemsScreen(),
-      //BottomTab(),
+
+       home: BottomTab(),
 
     );
   }

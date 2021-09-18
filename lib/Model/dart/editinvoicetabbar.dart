@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:invoiceapp/Ui/editinvoicescreen.dart';
 import 'package:invoiceapp/Ui/invoices.dart';
 import 'package:invoiceapp/Ui/outstanding.dart';
+import 'package:invoiceapp/Ui/notes.dart';
+import 'package:invoiceapp/Ui/previewinVoice.dart';
 const double borderRadius = 4.0;
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key}) : super(key: key);
@@ -77,7 +79,7 @@ class _TabBarPageState extends State<TabBarPage>with TickerProviderStateMixin {
                     EditInvoicePage(),
 
                     // second tab bar view widget
-                    OutStandingScreen(),
+                    InvoiceView(),
 
                   ],
                 ),

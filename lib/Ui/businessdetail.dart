@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Ui/addclient.dart';
+import 'package:invoiceapp/Ui/clint.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Ibox4.dart';
 import 'package:invoiceapp/Widget/button.dart';
 import 'package:invoiceapp/constant.dart';
+
+import 'chooseclient1.dart';
 class BusinessDetailScreen extends StatefulWidget {
   const BusinessDetailScreen({Key? key}) : super(key: key);
 
@@ -100,7 +104,9 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Button(
-                pressed: (){},
+                pressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseClientScreen1()));
+                  },
                   text: "Save", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
             )
 

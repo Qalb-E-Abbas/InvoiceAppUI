@@ -7,7 +7,9 @@ import 'package:invoiceapp/Ui/businessdetail.dart';
 import 'package:invoiceapp/Ui/editinvice.dart';
 import 'package:invoiceapp/Ui/home.dart';
 import 'package:invoiceapp/Ui/payment.dart';
+import 'package:invoiceapp/Ui/report.dart';
 import 'package:invoiceapp/constant.dart';
+import 'package:invoiceapp/generated/assets.dart';
 class BottomTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -19,13 +21,10 @@ class _BottomTab extends State<BottomTab> {
   int _selectedTabIndex = 0;
 
   List _pages = [
-    // HomeScreen(),
-    // EditInvoiceScreen(),
-    // BusinessDetailScreen(),
-    PaymentScreen(),
-    AddTaxScreen(),
-    AddDiscountScreen(),
-    AddClientScreen(),
+    HomeScreen(),
+    EditInvoiceScreen(),
+    ReportScreen(),
+    BusinessDetailScreen(),
   ];
 
   _changeIndex(int index) {
@@ -67,19 +66,19 @@ class _BottomTab extends State<BottomTab> {
             showUnselectedLabels: true,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: new Icon(Icons.home),
-                title: new Text('Home'),
+                icon: ImageIcon(AssetImage(Assets.imagesAudience),color: Colors.white,),
+                title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(Icons.shopping_cart_outlined),
-                title: new Text('Order'),
+                icon: ImageIcon(AssetImage(Assets.imagesAudience),color: Colors.white,size: 25,),
+                title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(Icons.mail),
-                title: new Text('Messages'),
+                icon: ImageIcon(AssetImage(Assets.imagesChart),color: Colors.white,),
+                title: new Text(''),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.more_horiz_rounded), title: Text('More')),
+                  icon: ImageIcon(AssetImage(Assets.imagesSettings,),color: Colors.white,), title: Text('')),
             ],
           ),
         ));
