@@ -98,7 +98,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Button(text: "import from contact", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
+              child: Button(
+                pressed: (){},
+                  text: "import from contact", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
             )
 
           ],

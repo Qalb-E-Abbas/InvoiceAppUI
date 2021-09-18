@@ -99,7 +99,9 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Button(text: "Save", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
+              child: Button(
+                pressed: (){},
+                  text: "Save", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
             )
 
 

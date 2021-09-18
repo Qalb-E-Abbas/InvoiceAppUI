@@ -6,9 +6,11 @@ class Button extends StatelessWidget {
   var textcolor;
   var colors;
   var bordercolor;
+  final VoidCallback pressed;
 
 
-  Button({required this.text, required this.colors, required this.bordercolor, required this.textcolor,});
+  Button({required this.text, required this.colors, required this.bordercolor, required this.textcolor,required this.pressed
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,7 @@ class Button extends StatelessWidget {
             text,style: TextStyle(color: textcolor,fontSize: 14,fontWeight: FontWeight.w500),
           ),
           color: colors,
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>ClientScreen()));
-          },
+          onPressed: pressed
         ),
       ),
     );

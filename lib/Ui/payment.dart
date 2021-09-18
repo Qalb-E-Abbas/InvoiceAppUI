@@ -20,34 +20,45 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Ibox(text: "Payment"),
-          Padding(
-              padding: const EdgeInsets.only(left: 10,top: 20,right: 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Total",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
-                    Text("\$35.0",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+          Ibox(text: "Payment Instructions"),
 
-                  ])),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Text("Paid",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+            child: Text("Paypal Email",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
           ),
           SizedBox(
             height: 20,
           ),
-          Utiles.getStyledTextField(controller: _balanceController, hint: "Balance Due", isNumber: true),
+          Utiles.getStyledTextField(controller: _balanceController, hint: "Enter you paypal email", isNumber: true),
           SizedBox(
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Button(text: "Add payment", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
-          )
+            padding: const EdgeInsets.only(left: 10,right: 10),
+            child: Text("Make check payable to",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Utiles.getStyledTextField(controller: _balanceController, hint: "Your or your business's name", isNumber: true),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10,right: 10),
+            child: Text("Bank Transfer",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Utiles.getStyledTextField(controller: _balanceController, hint: "Enter bank account # and other detail", isNumber: true),
+          SizedBox(
+            height: 20,
+          ),
+
 
         ],
       ),

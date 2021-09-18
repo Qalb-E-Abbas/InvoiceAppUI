@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Ui/businessinformation.dart';
 import 'package:invoiceapp/Widget/Box.dart';
 import 'package:invoiceapp/Widget/Textformfeild.dart';
-import 'package:invoiceapp/Widget/button.dart';
 import 'package:invoiceapp/constant.dart';
-class ClientScreen extends StatefulWidget {
-  const ClientScreen({Key? key}) : super(key: key);
+class ChooseClientScreen1 extends StatefulWidget {
+  const ChooseClientScreen1({Key? key}) : super(key: key);
 
   @override
-  _ClientScreenState createState() => _ClientScreenState();
+  _ChooseClientScreen1State createState() => _ChooseClientScreen1State();
 }
 
-class _ClientScreenState extends State<ClientScreen> {
+class _ChooseClientScreen1State extends State<ChooseClientScreen1> {
   var _clientNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: Colors.grey[300],
       floatingActionButton: CircleAvatar(
         radius: 33,
@@ -23,7 +21,7 @@ class _ClientScreenState extends State<ClientScreen> {
         child: FloatingActionButton(
 
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>BusinessInformationScreen()));
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>BusinessInformationScreen()));
           },
           backgroundColor: AppColors.primeryColor,
           child: Icon(Icons.add),
@@ -62,16 +60,6 @@ class _ClientScreenState extends State<ClientScreen> {
               Utiles.getStyledTextField(
                   controller: _clientNameController,
                   hint: "Client3", isNumber: false),
-
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Button(
-                  pressed: (){},
-                    text: "import from contact", colors: AppColors.primeryColor, bordercolor: AppColors.primeryColor, textcolor: Colors.white),
-              )
             ],
           ),
         ),

@@ -62,6 +62,7 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
 
               ),
               Button(
+                pressed: (){},
                 text: "Add Photos & Description ",
                 textcolor:AppColors.primeryColor ,
                 colors: Colors.white,
@@ -77,6 +78,7 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
 
               ),
               Button(
+                pressed: (){},
                 text: "Mark Pad",
                 textcolor: Colors.white,
                 colors: AppColors.primeryColor,
