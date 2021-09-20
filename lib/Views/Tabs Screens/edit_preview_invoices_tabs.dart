@@ -50,7 +50,7 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
         children: [
           CustomAppBar(text: "Invoice", isClient: true),
 
-          SizedBox(height: 20,),
+          SizedBox(height: 10,),
 
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
