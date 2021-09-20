@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Model/dart/tabbar.dart';
-import 'package:invoiceapp/Ui/addclient.dart';
-import 'package:invoiceapp/Ui/adddiscount.dart';
-import 'package:invoiceapp/Ui/addtax.dart';
-import 'package:invoiceapp/Ui/businessdetail.dart';
-import 'package:invoiceapp/Ui/editinvice.dart';
-import 'package:invoiceapp/Ui/home.dart';
-import 'package:invoiceapp/Ui/payment.dart';
-import 'package:invoiceapp/Ui/report.dart';
-import 'package:invoiceapp/constant.dart';
+import 'package:invoiceapp/Views/businessdetail.dart';
+import 'package:invoiceapp/Views/edit_preview_invoices_tabs.dart';
+import 'package:invoiceapp/Views/home.dart';
+import 'package:invoiceapp/Views/report_screens_tabs.dart';
+
+
+import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/generated/assets.dart';
 class BottomTab extends StatefulWidget {
   @override
@@ -18,12 +15,13 @@ class BottomTab extends StatefulWidget {
 }
 
 class _BottomTab extends State<BottomTab> {
+
   int _selectedTabIndex = 0;
 
   List _pages = [
     HomeScreen(),
-    EditInvoiceScreen(),
-    ReportScreen(),
+    EditPreviewInvoiceTabs(),
+    ReportScreenTabs(),
     BusinessDetailScreen(),
   ];
 
@@ -36,10 +34,12 @@ class _BottomTab extends State<BottomTab> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
 
       body: Center(child: _pages[_selectedTabIndex]),
+
       bottomNavigationBar: bottomNavigationBar,
     );
   }
@@ -49,7 +49,8 @@ class _BottomTab extends State<BottomTab> {
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(45), topLeft: Radius.circular(45)),
+              topRight: Radius.circular(45),
+              topLeft: Radius.circular(45)),
 
         ),
         child: ClipRRect(
@@ -60,7 +61,7 @@ class _BottomTab extends State<BottomTab> {
           child: BottomNavigationBar(
             showSelectedLabels: false,   // <-- HERE
             showUnselectedLabels: false,
-            backgroundColor: AppColors.primeryColor,
+            backgroundColor: AppColors.primaryColor,
             currentIndex: _selectedTabIndex,
             onTap: _changeIndex,
             type: BottomNavigationBarType.fixed,
