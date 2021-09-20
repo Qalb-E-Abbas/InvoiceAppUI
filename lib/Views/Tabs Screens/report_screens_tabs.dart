@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/Views/report_client_view.dart';
 import 'package:invoiceapp/Views/report_paid_view.dart';
+import 'package:invoiceapp/common/horizontal_width.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 
 class ReportScreenTabs extends StatefulWidget {
@@ -59,10 +60,20 @@ class _ReportScreenTabsState extends State<ReportScreenTabs> with TickerProvider
                                 color: Colors.white,fontSize: 16,
                                 fontWeight: FontWeight.bold),),
 
-                          Text("Report",
-                            style: TextStyle(
-                                color:AppColors.primaryColor,fontSize: 16,
-                                fontWeight: FontWeight.bold),),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Row(
+                              children: [
+
+                                Icon(Icons.refresh, color: Colors.white,),
+
+                                HorizontalWidth(width: 2,),
+
+                                Icon(Icons.menu_open_rounded, color: Colors.white,)
+
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

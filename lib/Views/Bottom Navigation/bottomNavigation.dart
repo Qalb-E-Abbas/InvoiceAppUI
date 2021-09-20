@@ -72,7 +72,7 @@ class _BottomTab extends State<BottomTab> {
 
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesCustomer),color: Colors.white,size: 27,),
+                icon: ImageIcon(AssetImage('images/price-list.png'),color: Colors.white,size: 27,),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
