@@ -1,11 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Model/dart/bottomNavigation.dart';
+import 'package:get/get.dart';
+import 'package:invoiceapp/application/add_item_provider.dart';
+import 'package:invoiceapp/application/add_tax_provider.dart';
+import 'package:invoiceapp/application/client_provider.dart';
+import 'package:invoiceapp/application/payment_provider.dart';
+import 'package:invoiceapp/application/total_cost.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
+import 'package:provider/provider.dart';
 
+import 'Views/sign_in.dart';
+import 'application/add_discount_provider.dart';
+import 'application/app_state.dart';
+import 'application/errorStrings.dart';
+import 'application/signUpBusinissLogic.dart';
+import 'infratstrucutre/services/authServices.dart';
 
-
-
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -13,12 +26,32 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-       home: BottomTab(),
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppState()),
+        ChangeNotifierProvider(create: (_) => ErrorString()),
+        ChangeNotifierProvider(create: (_) => AddItemProvider()),
+        ChangeNotifierProvider(create: (_) => AddDiscountProvider()),
+        ChangeNotifierProvider(create: (_) => AddTaxProvider()),
+        ChangeNotifierProvider(create: (_) => AddClientProvider()),
+        ChangeNotifierProvider(create: (_) => AddPaymentProvider()),
+        ChangeNotifierProvider(create: (_) => TotalCostProvider()),
+        ChangeNotifierProvider(create: (_) => AppState()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(
+          create: (_) => AuthServices.instance(),
+        ),
+        ChangeNotifierProvider(create: (_) => SignUpBusinessLogic()),
+        ChangeNotifierProvider(create: (_) => ErrorString()),
+        StreamProvider(
+          create: (context) => context.read<AuthServices>().authState,
+          initialData: AuthServices.instance().authState,
+        )
+      ],
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignIn(),
+      ),
     );
   }
 }
-
-

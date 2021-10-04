@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invoiceapp/Views/additems.dart';
 import 'package:invoiceapp/Views/paidinvoice.dart';
-import 'package:invoiceapp/elements/invoices_list_screens/Appbar.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+import 'package:invoiceapp/elements/invoices_list_screens/Appbar.dart';
 
-import 'all_invoices.dart';
-import 'outstanding_screen.dart';
+import '../all_invoices.dart';
+import '../outstanding_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,9 +16,8 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-
-
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -32,16 +34,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   final PageController _pageController = PageController();
   int activePageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[300],
         floatingActionButton: CircleAvatar(
           radius: 33,
           backgroundColor: Colors.white,
           child: FloatingActionButton(
-
-            onPressed: (){},
+            onPressed: () {
+              Get.to(() => AddItemsScreen());
+            },
             backgroundColor: AppColors.primaryColor,
             child: Icon(Icons.add),
           ),
@@ -54,17 +58,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               FocusScope.of(context).requestFocus(FocusNode());
             },
             child: Column(
-
               children: <Widget>[
                 AppBarBox(text: "Invoices"),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child:  Padding(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       height: MediaQuery.of(context).size.height,
-                      color:  Colors.white,
+                      color: Colors.white,
                       child: Column(
                         children: [
                           // give the tab bar a height [can change hheight to preferred height]
@@ -80,9 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               controller: _tabController,
                               // give the indicator a decoration (color and border radius)
                               indicator: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    5
-                                ),
+                                borderRadius: BorderRadius.circular(5),
                                 color: Colors.green,
                               ),
                               labelColor: Colors.white,
@@ -119,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/Views/Tabs%20Screens/home_tabs.dart';
+import 'package:invoiceapp/Views/Tabs%20Screens/report_screens_tabs.dart';
 import 'package:invoiceapp/Views/businessdetail.dart';
-import 'package:invoiceapp/Views/edit_preview_invoices_tabs.dart';
-import 'package:invoiceapp/Views/home.dart';
-import 'package:invoiceapp/Views/report_screens_tabs.dart';
-
-
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/generated/assets.dart';
+
 class BottomTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,12 +13,11 @@ class BottomTab extends StatefulWidget {
 }
 
 class _BottomTab extends State<BottomTab> {
-
   int _selectedTabIndex = 0;
 
   List _pages = [
     HomeScreen(),
-    EditPreviewInvoiceTabs(),
+    HomeScreen(),
     ReportScreenTabs(),
     BusinessDetailScreen(),
   ];
@@ -34,12 +31,9 @@ class _BottomTab extends State<BottomTab> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
-
       body: Center(child: _pages[_selectedTabIndex]),
-
       bottomNavigationBar: bottomNavigationBar,
     );
   }
@@ -49,9 +43,7 @@ class _BottomTab extends State<BottomTab> {
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(45),
-              topLeft: Radius.circular(45)),
-
+              topRight: Radius.circular(45), topLeft: Radius.circular(45)),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -59,7 +51,7 @@ class _BottomTab extends State<BottomTab> {
             topRight: Radius.circular(15.0),
           ),
           child: BottomNavigationBar(
-            showSelectedLabels: false,   // <-- HERE
+            showSelectedLabels: false, // <-- HERE
             showUnselectedLabels: false,
             backgroundColor: AppColors.primaryColor,
             currentIndex: _selectedTabIndex,
@@ -72,19 +64,38 @@ class _BottomTab extends State<BottomTab> {
 
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('images/price-list.png'),color: Colors.white,size: 27,),
+                icon: ImageIcon(
+                  AssetImage('images/price-list.png'),
+                  color: Colors.white,
+                  size: 27,
+                ),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesCustomer),color: Colors.white,size: 27,),
+                icon: ImageIcon(
+                  AssetImage(Assets.imagesCustomer),
+                  color: Colors.white,
+                  size: 27,
+                ),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage(Assets.imagesChart),color: Colors.white,size: 25,),
+                icon: ImageIcon(
+                  AssetImage(Assets.imagesChart),
+                  color: Colors.white,
+                  size: 25,
+                ),
                 title: new Text(''),
               ),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(Assets.imagesSettings,),color: Colors.white,size: 25,), title: Text('')),
+                  icon: ImageIcon(
+                    AssetImage(
+                      Assets.imagesSettings,
+                    ),
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  title: Text('')),
             ],
           ),
         ));
