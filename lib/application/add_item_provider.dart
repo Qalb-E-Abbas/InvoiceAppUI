@@ -9,5 +9,10 @@ class AddItemProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearList() {
+    _addItem.clear();
+    notifyListeners();
+  }
+
   List<AddItem> getAddItem() => _addItem;
 }

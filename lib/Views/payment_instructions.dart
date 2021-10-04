@@ -10,7 +10,10 @@ import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:provider/provider.dart';
 
 class PaymentInstructionScreen extends StatefulWidget {
-  const PaymentInstructionScreen({Key? key}) : super(key: key);
+  final BankDetails paymentInstructionScreen;
+  const PaymentInstructionScreen(
+      {Key? key, required this.paymentInstructionScreen})
+      : super(key: key);
 
   @override
   _PaymentInstructionScreenState createState() =>
@@ -113,11 +116,8 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                 ),
                 RaisedButton(onPressed: () {
                   Get.to(() => AdditionalDetailsScreen());
-                  bankInstruction.savePayment(BankDetails(
-                      email: _emailController.text,
-                      to: _businessName.text,
-                      bankTransfer: _transferController.text,
-                      other: _toController.text));
+                  bankInstruction
+                      .savePayment(BankDetails(other: _toController.text));
                 })
               ],
             ),

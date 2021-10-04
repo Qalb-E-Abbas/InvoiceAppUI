@@ -23,6 +23,7 @@ class _ReportPaidViewState extends State<ReportPaidView> {
     Months(name: "July", id: "7"),
     Months(name: "August", id: "8"),
     Months(name: "September", id: "9"),
+    Months(name: "October", id: "10"),
   ];
   InvoiceServices _invoiceServices = InvoiceServices();
   int totalCost = 0;

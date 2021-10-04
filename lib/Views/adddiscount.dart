@@ -12,7 +12,9 @@ import 'package:provider/provider.dart';
 import 'chooseClient2.dart';
 
 class AddDiscountScreen extends StatefulWidget {
-  const AddDiscountScreen({Key? key}) : super(key: key);
+  final DiscountPrice discountPrice;
+  const AddDiscountScreen({Key? key, required this.discountPrice})
+      : super(key: key);
 
   @override
   _AddDiscountScreenState createState() => _AddDiscountScreenState();

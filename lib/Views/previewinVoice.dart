@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/elements/previewInvoiceScreen_elements/description_element.dart';
 import 'package:invoiceapp/elements/previewInvoiceScreen_elements/recharge_row_elements.dart';
 import 'package:invoiceapp/elements/previewInvoiceScreen_elements/row_elements.dart';
@@ -33,33 +35,30 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.invoiceModel.business!.businessName != null)
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                              image: AssetImage('images/audience.png'),
-                              fit: BoxFit.cover)),
-                      height: 50,
-                      width: 80,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      widget.invoiceModel.business!.businessName.toString(),
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green),
-                    ),
-                  ],
-                ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: widget.invoiceModel.business!.logo.toString(),
+                    height: 50,
+                    width: 80,
+                    placeholder: (context, url) => LoadingWidget(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    widget.invoiceModel.business!.name.toString(),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
+                  ),
+                ],
               ),
+            ),
             VerticalHeight(
               height: 30,
             ),
@@ -76,9 +75,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
               height: 10,
             ),
             rowElements(
-              text: widget.invoiceModel.business!.businessName == null
-                  ? ""
-                  : widget.invoiceModel.business!.businessName.toString(),
+              text: widget.invoiceModel.business!.ownerName,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
               text1: widget.invoiceModel.clientModel!.name.toString(),
               style1: TextStyle(
@@ -90,7 +87,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
               height: 5,
             ),
             rowElements(
-              text: widget.invoiceModel.invoiceFrom!.phoneNumber.toString(),
+              text: widget.invoiceModel.business!.number.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
               text1: widget.invoiceModel.clientModel!.number.toString(),
               style1: TextStyle(
@@ -102,23 +99,21 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
               height: 5,
             ),
             rowElements(
-              text: widget.invoiceModel.business!.businessName == null
-                  ? ""
-                  : widget.invoiceModel.business!.ownerName.toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
-              text1: widget.invoiceModel.clientModel!.number.toString(),
-              style1: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13),
-            ),
-            VerticalHeight(
-              height: 5,
-            ),
-            rowElements(
-              text: widget.invoiceModel.invoiceFrom!.email.toString(),
+              text: widget.invoiceModel.business!.email.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
               text1: widget.invoiceModel.clientModel!.email.toString(),
+              style1: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13),
+            ),
+            VerticalHeight(
+              height: 5,
+            ),
+            rowElements(
+              text: widget.invoiceModel.business!.website.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+              text1: widget.invoiceModel.clientModel!.address.toString(),
               style1: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -269,14 +264,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                     height: 12,
                   ),
                   DynamicFontSize(
-                      label: widget.invoiceModel.bankDetails!.bankTransfer
-                          .toString(),
-                      fontSize: 12),
-                  VerticalHeight(
-                    height: 8,
-                  ),
-                  DynamicFontSize(
-                      label: widget.invoiceModel.bankDetails!.email.toString(),
+                      label: widget.invoiceModel.bankDetails!.other.toString(),
                       fontSize: 12),
                 ],
               ),

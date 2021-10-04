@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/total_cost.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
@@ -29,13 +30,15 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
   @override
   Widget build(BuildContext context) {
     var totalCost = Provider.of<TotalCostProvider>(context);
+    var user = Provider.of<UserProvider>(context);
     print(totalCost.getTotalCost());
     return SingleChildScrollView(
       child: Container(
           height: MediaQuery.of(context).size.height * 0.58,
           color: Colors.grey[300],
           child: StreamProvider.value(
-            value: _invoiceServices.streamMyInvoice(deviceID),
+            value:
+                _invoiceServices.streamMyInvoice(user.getUserDetails().docID!),
             initialData: [InvoiceModel()],
             builder: (context, child) {
               return ListView.builder(

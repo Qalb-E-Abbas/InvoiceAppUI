@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 import 'adddiscount.dart';
 
 class AddTaxScreen extends StatefulWidget {
-  const AddTaxScreen({Key? key}) : super(key: key);
+  final Tax tax;
+  const AddTaxScreen({Key? key, required this.tax}) : super(key: key);
 
   @override
   _AddTaxScreenState createState() => _AddTaxScreenState();
@@ -114,7 +115,9 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddDiscountScreen()));
+                                builder: (context) => AddDiscountScreen(
+                                      discountPrice: DiscountPrice(),
+                                    )));
                       },
                     ),
                   ),

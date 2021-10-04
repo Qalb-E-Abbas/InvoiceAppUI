@@ -44,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen>
           backgroundColor: Colors.white,
           child: FloatingActionButton(
             onPressed: () {
-              Get.to(() => AddItemsScreen());
+              Get.to(() => AddItemsScreen(
+                    addItem: [],
+                  ));
             },
             backgroundColor: AppColors.primaryColor,
             child: Icon(Icons.add),

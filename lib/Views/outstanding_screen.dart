@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
@@ -27,10 +28,12 @@ class _OutStandingScreenState extends State<OutStandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context);
     return Container(
         color: Colors.grey[300],
         child: StreamProvider.value(
-          value: _invoiceServices.streamOutstandingInvoices(deviceID),
+          value: _invoiceServices
+              .streamOutstandingInvoices(user.getUserDetails().docID!),
           initialData: [InvoiceModel()],
           builder: (context, child) {
             return ListView.builder(

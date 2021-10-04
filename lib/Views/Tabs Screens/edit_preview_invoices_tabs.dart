@@ -94,7 +94,9 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  EditInvoicePage(),
+                  EditInvoicePage(
+                    invoiceModel: widget.invoiceModel,
+                  ),
                   PreviewInvoiceScreen(
                     invoiceModel: widget.invoiceModel,
                   ),

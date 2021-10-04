@@ -7,6 +7,7 @@ import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
+import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/client_services.dart';
 import 'package:provider/provider.dart';
 
@@ -92,7 +93,10 @@ class _ChooseClient2State extends State<ChooseClient2> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                PaymentInstructionScreen()));
+                                                PaymentInstructionScreen(
+                                                  paymentInstructionScreen:
+                                                      BankDetails(),
+                                                )));
 
                                     addClient.saveClient(ClientModel(
                                       name: context

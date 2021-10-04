@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:invoiceapp/application/add_discount_provider.dart';
 import 'package:invoiceapp/application/add_item_provider.dart';
 import 'package:invoiceapp/application/add_tax_provider.dart';
@@ -12,6 +13,7 @@ import 'package:invoiceapp/application/client_provider.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/payment_provider.dart';
 import 'package:invoiceapp/application/total_cost.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/common/button.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
@@ -41,6 +43,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
   FlutterSecureStorage _flutterSecureStorage = FlutterSecureStorage();
   Business _business = Business();
 
+  DateTime selectedDate = DateTime.now();
+
   @override
   void initState() {
     getDeviceID().then((value) {
@@ -69,6 +73,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
     var addClient = Provider.of<AddClientProvider>(context);
     var addBankDetails = Provider.of<AddPaymentProvider>(context);
     var totalCost = Provider.of<TotalCostProvider>(context);
+    var user = Provider.of<UserProvider>(context);
     return FutureBuilder(
         future: _flutterSecureStorage.read(key: "key"),
         builder: (_, snapshot) {
@@ -79,7 +84,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                 logo: data['logo'],
                 businessName: data['businessName']);
           return StreamProvider.value(
-            value: _invoiceServices.streamMyInvoice(deviceID),
+            value:
+                _invoiceServices.streamMyInvoice(user.getUserDetails().docID!),
             initialData: [InvoiceModel()],
             builder: (context, child) {
               return SingleChildScrollView(
@@ -125,38 +131,66 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                       height: 20,
                     ),
                     Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: AppColors.primaryColor)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              child: Text(
+                                DateFormat.yMd().format(selectedDate),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.date_range),
+                              onPressed: () {
+                                _selectDate(context);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    VerticalHeight(
+                      height: 20,
+                    ),
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Button(
                           pressed: () async {
-                            await getDeviceID().then((value) async {
-                              await _invoiceServices.createInvoice(context,
-                                  model: InvoiceModel(
-                                      monthID: DateTime.now().month.toString(),
-                                      invoiceId:
-                                          "INV 00${context.read<List<InvoiceModel>>().length}",
-                                      date: DateTime.now().toString(),
-                                      dueDate: DateTime.now().toString(),
-                                      description: _noteController.text,
-                                      business: Business(
-                                          businessName: _business.businessName,
-                                          logo: _business.logo,
-                                          ownerName: _business.ownerName),
-                                      bankDetails: addBankDetails.getPayment(),
-                                      clientModel: addClient.getClient(),
-                                      status: "UNPAID",
-                                      tax: addTax.getTax(),
-                                      totalCost: totalCost.getTotalCost(),
-                                      invoiceFrom: Invoice(
-                                          name: "",
-                                          website: "",
-                                          email: "",
-                                          phoneNumber: ""),
-                                      discountPrice: addDiscount.getDiscount(),
-                                      addItem: addItem.getAddItem()),
-                                  deviceID: value.toString());
-                            }).then((value) {
+                            var user = Provider.of<UserProvider>(context,
+                                listen: false);
+                            await _invoiceServices
+                                .createInvoice(context,
+                                    model: InvoiceModel(
+                                        monthID:
+                                            DateTime.now().month.toString(),
+                                        invoiceId:
+                                            "INV 00${context.read<List<InvoiceModel>>().length}",
+                                        date: DateTime.now().toString(),
+                                        dueDate: selectedDate.toString(),
+                                        description: _noteController.text,
+                                        business: user.getUserDetails(),
+                                        bankDetails:
+                                            addBankDetails.getPayment(),
+                                        clientModel: addClient.getClient(),
+                                        status: "UNPAID",
+                                        tax: addTax.getTax(),
+                                        totalCost: totalCost.getTotalCost(),
+                                        discountPrice:
+                                            addDiscount.getDiscount(),
+                                        addItem: addItem.getAddItem()),
+                                    deviceID:
+                                        user.getUserDetails().docID.toString())
+                                .then((value) {
                               if (status.getStateStatus() ==
                                   StateStatus.IsFree) {
+                                addItem.clearList();
                                 showNavigationDialog(context,
                                     message:
                                         "Invoice has been created successfully.",
@@ -179,5 +213,19 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
             },
           );
         });
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        // _dateController.text = DateFormat.yMd().format(selectedDate);
+      });
   }
 }

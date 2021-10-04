@@ -12,11 +12,16 @@ class UpdateUserData {
 
   Future<void> updateUserData(BuildContext context,
       {required BusinessModel model}) async {
-    var user = Provider.of<UserProvider>(context);
-    _userServices.updateUserData(context, model: model).then((value) {
-      _userServices.streamUserData(model.docID!).first.then((value) async {
+    var user = Provider.of<UserProvider>(context, listen: false);
+    return await _userServices
+        .updateUserData(context, model: model)
+        .then((value) async {
+      return await _userServices
+          .streamUserData(model.docID!)
+          .first
+          .then((value) async {
         user.saveUserDetails(model);
-        await _flutterSecureStorage.write(
+        return await _flutterSecureStorage.write(
             key: BackEndConfigs.userDetailsLocalStorage,
             value: value.toJson(docID: value.docID!).toString());
       });

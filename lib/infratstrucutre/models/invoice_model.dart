@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:invoiceapp/infratstrucutre/models/business_model.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
 
 InvoiceModel invoiceModelFromJson(String str) =>
@@ -20,7 +21,6 @@ class InvoiceModel {
     this.date,
     this.dueDate,
     this.description,
-    this.invoiceFrom,
     this.clientModel,
     this.status,
     this.addItem,
@@ -32,7 +32,7 @@ class InvoiceModel {
     this.deviceID,
   });
 
-  Business? business;
+  BusinessModel? business;
   String? invoiceId;
   String? docID;
   String? deviceID;
@@ -42,7 +42,6 @@ class InvoiceModel {
   String? date;
   String? dueDate;
   String? description;
-  Invoice? invoiceFrom;
   String? status;
   ClientModel? clientModel;
   List<AddItem>? addItem;
@@ -51,7 +50,7 @@ class InvoiceModel {
   BankDetails? bankDetails;
 
   factory InvoiceModel.fromJson(Map<String, dynamic> json) => InvoiceModel(
-        business: Business.fromJson(json["business"]),
+        business: BusinessModel.fromJson(json["business"]),
         invoiceId: json["invoiceID"],
         totalCost: json["totalCost"],
         docID: json["docID"],
@@ -60,7 +59,6 @@ class InvoiceModel {
         deviceID: json["deviceID"],
         monthID: json["monthID"],
         description: json["description"],
-        invoiceFrom: Invoice.fromJson(json["invoiceFrom"]),
         clientModel: ClientModel.fromJson(json["clientModel"]),
         status: json["status"],
         addItem:
@@ -73,7 +71,7 @@ class InvoiceModel {
   Map<String, dynamic> toJson(
           {required String docID, required String deviceID}) =>
       {
-        "business": business!.toJson(),
+        "business": business!.toJson(docID: docID),
         "invoiceID": invoiceId,
         "totalCost": totalCost,
         "docID": docID,
@@ -82,7 +80,6 @@ class InvoiceModel {
         "dueDate": dueDate,
         "deviceID": deviceID,
         "description": description,
-        "invoiceFrom": invoiceFrom!.toJson(),
         "clientModel": clientModel!.toJson(
             deviceID: clientModel!.deviceID.toString(),
             docID: clientModel!.docId.toString()),
@@ -120,28 +117,16 @@ class AddItem {
 
 class BankDetails {
   BankDetails({
-    this.email,
-    this.to,
-    this.bankTransfer,
     this.other,
   });
 
-  String? email;
-  String? to;
-  String? bankTransfer;
   String? other;
 
   factory BankDetails.fromJson(Map<String, dynamic> json) => BankDetails(
-        email: json["email"],
-        to: json["to"],
-        bankTransfer: json["bankTransfer"],
         other: json["other"],
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
-        "to": to,
-        "bankTransfer": bankTransfer,
         "other": other,
       };
 }
