@@ -49,7 +49,11 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
         ),
         body: Column(
           children: [
-            CustomAppBar(text: "Invoice", isClient: true),
+            CustomAppBar(
+              text: "Invoice",
+              isClient: true,
+              invoiceID: widget.invoiceModel.docID.toString(),
+            ),
             SizedBox(
               height: 10,
             ),

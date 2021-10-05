@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/Views/Tabs%20Screens/home_tabs.dart';
 import 'package:invoiceapp/Views/Tabs%20Screens/report_screens_tabs.dart';
 import 'package:invoiceapp/Views/businessdetail.dart';
+import 'package:invoiceapp/Views/chooseclient1.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+import 'package:invoiceapp/elements/navigation_dialog.dart';
 import 'package:invoiceapp/generated/assets.dart';
 
 class BottomTab extends StatefulWidget {
@@ -17,7 +21,7 @@ class _BottomTab extends State<BottomTab> {
 
   List _pages = [
     HomeScreen(),
-    HomeScreen(),
+    DisplayMyClientsView(),
     ReportScreenTabs(),
     BusinessDetailScreen(),
   ];
@@ -31,10 +35,19 @@ class _BottomTab extends State<BottomTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: Center(child: _pages[_selectedTabIndex]),
-      bottomNavigationBar: bottomNavigationBar,
+    return WillPopScope(
+      onWillPop: () async {
+        return await showNavigationDialog(context,
+            message: "Do you really want to exit from app?",
+            buttonText: "Yes", navigation: () {
+          exit(0);
+        }, secondButtonText: "No", showSecondButton: true);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: Center(child: _pages[_selectedTabIndex]),
+        bottomNavigationBar: bottomNavigationBar,
+      ),
     );
   }
 
@@ -51,7 +64,8 @@ class _BottomTab extends State<BottomTab> {
             topRight: Radius.circular(15.0),
           ),
           child: BottomNavigationBar(
-            showSelectedLabels: false, // <-- HERE
+            showSelectedLabels: false,
+            // <-- HERE
             showUnselectedLabels: false,
             backgroundColor: AppColors.primaryColor,
             currentIndex: _selectedTabIndex,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/app_state.dart';
+import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:provider/provider.dart';
 
@@ -83,5 +84,65 @@ class InvoiceServices {
     await invoiceCollection.doc(docID).delete();
     Provider.of<AppState>(context, listen: false)
         .stateStatus(StateStatus.IsFree);
+  }
+
+  ///Update Invoice Discount
+  Future<void> updateInvoiceDiscount(
+      {required String invoiceID, required DiscountPrice discountPrice}) async {
+    return await invoiceCollection
+        .doc(invoiceID)
+        .update({"discountPrice": discountPrice.toJson()});
+  }
+
+  ///Update Invoice Tax
+  Future<void> updateInvoiceTax(
+      {required String invoiceID, required Tax tax}) async {
+    await invoiceCollection.doc(invoiceID).update({"tax": tax.toJson()});
+  }
+
+  ///Update Invoice Client
+  Future<void> updateInvoiceClient(
+      {required String invoiceID,
+      required ClientModel clientModel,
+      required String userID}) async {
+    await invoiceCollection.doc(invoiceID).update({
+      "clientModel": clientModel.toJson(
+          docID: clientModel.docId.toString(), deviceID: userID)
+    });
+  }
+
+  ///Update Invoice Bank Details
+  Future<void> updateInvoiceBankDetails(
+      {required String invoiceID, required BankDetails bankDetails}) async {
+    await invoiceCollection
+        .doc(invoiceID)
+        .update({"bankDetails": bankDetails.toJson()});
+  }
+
+  ///Update Invoice Items
+  Future<void> updateInvoiceItems(
+      {required String invoiceID,
+      required List<AddItem> addItems,
+      required String totalCost}) async {
+    await invoiceCollection.doc(invoiceID).update({
+      "addItem": addItems.map((e) => e.toJson()).toList(),
+      "totalCost": totalCost
+    });
+  }
+
+  ///Update Invoice Additional Instruction
+  Future<void> updateInvoiceAdditionalInstruction(BuildContext context,
+      {required String invoiceID,
+      required String note,
+      required String dueDate}) async {
+    Provider.of<AppState>(context, listen: false)
+        .stateStatus(StateStatus.IsBusy);
+    return await invoiceCollection.doc(invoiceID).update({
+      "description": note,
+      "dueDate": dueDate,
+    }).then((value) {
+      Provider.of<AppState>(context, listen: false)
+          .stateStatus(StateStatus.IsFree);
+    });
   }
 }

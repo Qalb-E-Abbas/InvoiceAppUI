@@ -3,6 +3,7 @@ import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/total_cost.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
+import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
     print(totalCost.getTotalCost());
     return SingleChildScrollView(
       child: Container(
-          height: MediaQuery.of(context).size.height * 0.58,
+          height: MediaQuery.of(context).size.height,
           color: Colors.grey[300],
           child: StreamProvider.value(
             value:
@@ -48,7 +49,7 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
                   itemBuilder: (BuildContext context, int i) {
                     return context.watch<List<InvoiceModel>>().isNotEmpty
                         ? context.watch<List<InvoiceModel>>()[0].status == null
-                            ? CircularProgressIndicator()
+                            ? LoadingWidget()
                             : Padding(
                                 padding:
                                     const EdgeInsets.only(left: 6, bottom: 10),

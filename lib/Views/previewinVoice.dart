@@ -21,6 +21,17 @@ class PreviewInvoiceScreen extends StatefulWidget {
 }
 
 class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
+  int totalResult = 0;
+
+  initState() {
+    widget.invoiceModel.addItem!.map((e) {
+      totalResult +=
+          (int.parse(e.cost.toString()) * int.parse(e.quantity.toString()));
+      setState(() {});
+    }).toList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +157,17 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                               widget.invoiceModel.dueDate.toString()))),
                       RechargeRowElements(
                         'Balance Due',
-                        widget.invoiceModel.totalCost.toString(),
+                        getTotalPrice(
+                                subTotal: getSubTotalPrice(
+                                    totalCost: int.parse(widget
+                                        .invoiceModel.totalCost
+                                        .toString()),
+                                    discountPrice: int.parse(widget
+                                        .invoiceModel.discountPrice!.value
+                                        .toString())),
+                                tax: int.parse(
+                                    widget.invoiceModel.tax!.rate.toString()))
+                            .toString(),
                       ),
                     ],
                   ),
@@ -176,13 +197,21 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                   VerticalHeight(
                     height: 5,
                   ),
-                  DescriptionWidget(
-                    text: "",
-                    text1: widget.invoiceModel.addItem![0].cost.toString(),
-                    text2: widget.invoiceModel.addItem![0].quantity.toString(),
-                    color1: AppColors.blackColor,
-                    hasFirst: true,
+                  ...widget.invoiceModel.addItem!
+                      .map(
+                        (e) => DescriptionWidget(
+                          text: e.name,
+                          text1: e.cost.toString(),
+                          text2: e.quantity.toString(),
+                          color1: AppColors.blackColor,
+                          hasFirst: true,
+                        ),
+                      )
+                      .toList(),
+                  VerticalHeight(
+                    height: 5,
                   ),
+                  Divider(),
                   VerticalHeight(
                     height: 5,
                   ),
@@ -200,10 +229,8 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                     text: 'Luram Epsum',
                     text1: 'Subtotal',
                     text2: getSubTotalPrice(
-                      rate: int.parse(
-                          widget.invoiceModel.addItem![0].cost.toString()),
-                      quantity: int.parse(
-                          widget.invoiceModel.addItem![0].quantity.toString()),
+                      totalCost:
+                          int.parse(widget.invoiceModel.totalCost.toString()),
                       discountPrice: int.parse(
                           widget.invoiceModel.discountPrice!.value.toString()),
                     ).toString(),
@@ -228,16 +255,11 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                     text1: 'Total',
                     text2: getTotalPrice(
                             subTotal: getSubTotalPrice(
-                              rate: int.parse(widget
-                                  .invoiceModel.addItem![0].cost
-                                  .toString()),
-                              quantity: int.parse(widget
-                                  .invoiceModel.addItem![0].quantity
-                                  .toString()),
-                              discountPrice: int.parse(widget
-                                  .invoiceModel.discountPrice!.value
-                                  .toString()),
-                            ),
+                                totalCost: int.parse(
+                                    widget.invoiceModel.totalCost.toString()),
+                                discountPrice: int.parse(widget
+                                    .invoiceModel.discountPrice!.value
+                                    .toString())),
                             tax: int.parse(
                                 widget.invoiceModel.tax!.rate.toString()))
                         .toString(),
@@ -310,12 +332,9 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
     );
   }
 
-  int getSubTotalPrice(
-      {required int rate, required int quantity, required int discountPrice}) {
-    print(rate);
-    print(quantity);
+  int getSubTotalPrice({required int totalCost, required int discountPrice}) {
     print(discountPrice);
-    return (rate * quantity) - discountPrice;
+    return totalCost - discountPrice;
   }
 
   int getTotalPrice({required int subTotal, required int tax}) {

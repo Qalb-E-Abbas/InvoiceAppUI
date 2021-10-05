@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
+import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class _PaidInvoiceScreenState extends State<PaidInvoiceScreen> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.58,
+                  height: MediaQuery.of(context).size.height,
                   child: ListView.separated(
                       separatorBuilder: (ctx, index) => Container(
                             height: 10,
@@ -51,7 +52,7 @@ class _PaidInvoiceScreenState extends State<PaidInvoiceScreen> {
                         return context.watch<List<InvoiceModel>>().isNotEmpty
                             ? context.watch<List<InvoiceModel>>()[0].status ==
                                     null
-                                ? CircularProgressIndicator()
+                                ? LoadingWidget()
                                 : Padding(
                                     padding: const EdgeInsets.only(
                                         left: 6, bottom: 10),

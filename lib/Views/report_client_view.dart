@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/client_services.dart';
@@ -34,6 +36,7 @@ class _ReportClientViewState extends State<ReportClientView> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -55,33 +58,40 @@ class _ReportClientViewState extends State<ReportClientView> {
                 child: Column(
                   children: [
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            DynamicFontSize(
-                                label: '2021',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
+                            Container(
+                              width: 90,
+                              child: DynamicFontSize(
+                                  label: 'Name',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
                             DynamicFontSize(
                                 label: 'Invoice',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
-                            DynamicFontSize(
-                                label: 'Paid',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700)
+                            Container(
+                              width: 90,
+                              child: DynamicFontSize(
+                                  label: 'Paid',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            )
                           ],
                         ),
                       ),
                     ),
+                    Divider(),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.9,
                       width: double.infinity,
                       child: StreamProvider.value(
-                        value: _clientServices.streamMyClient(deviceID),
+                        value: _clientServices
+                            .streamMyClient(user.getUserDetails().docID!),
                         initialData: [ClientModel()],
                         builder: (context, child) {
                           return ListView.separated(
@@ -110,7 +120,7 @@ class _ReportClientViewState extends State<ReportClientView> {
                                                         0]
                                                     .docId ==
                                                 null
-                                            ? CircularProgressIndicator()
+                                            ? LoadingWidget()
                                             : Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -120,16 +130,20 @@ class _ReportClientViewState extends State<ReportClientView> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    DynamicFontSize(
-                                                      label: context
-                                                          .watch<
-                                                              List<
-                                                                  ClientModel>>()[
-                                                              i]
-                                                          .name,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
+                                                    Container(
+                                                      width: 90,
+                                                      child: DynamicFontSize(
+                                                        isAlignCenter: false,
+                                                        label: context
+                                                            .watch<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .name,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                                     DynamicFontSize(
                                                       label: invContext
@@ -142,17 +156,21 @@ class _ReportClientViewState extends State<ReportClientView> {
                                                       fontWeight:
                                                           FontWeight.w700,
                                                     ),
-                                                    DynamicFontSize(
-                                                      label: invContext
-                                                              .watch<
-                                                                  List<
-                                                                      InvoiceModel>>()
-                                                              .isNotEmpty
-                                                          ? totalCost.toString()
-                                                          : "N/A",
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
+                                                    Container(
+                                                      width: 90,
+                                                      child: DynamicFontSize(
+                                                        label: invContext
+                                                                .watch<
+                                                                    List<
+                                                                        InvoiceModel>>()
+                                                                .isNotEmpty
+                                                            ? totalCost
+                                                                .toString()
+                                                            : "N/A",
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

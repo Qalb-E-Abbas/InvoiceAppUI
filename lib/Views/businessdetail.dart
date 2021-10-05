@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:invoiceapp/Views/Bottom%20Navigation/bottomNavigation.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/application/update_logic.dart';
 import 'package:invoiceapp/common/button.dart';
-import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/elements/businessDetailsField.dart';
@@ -75,7 +76,37 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CustomAppBar(text: "Business Details", isClient: false),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.13,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
+                    ),
+                    color: AppColors.primaryColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Business Details",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 VerticalHeight(
                   height: 35,
                 ),
@@ -85,6 +116,9 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: CachedNetworkImage(
+                        height: MediaQuery.of(context).size.height * 0.19,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                         imageUrl: user.getUserDetails().logo.toString(),
                         placeholder: (context, url) => LoadingWidget(),
                         errorWidget: (context, url, error) => Icon(Icons.error),
@@ -113,7 +147,10 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 )
-                              : Image.file(_file!),
+                              : Image.file(
+                                  _file!,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
@@ -124,23 +161,50 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                 BusinessDetailsField(
                     label: "Business Name",
                     controller: _nameController,
-                    validator: (val) {}),
+                    validator: (val) =>
+                        val.isEmpty ? "Field cannot be empty" : null),
                 BusinessDetailsField(
                     label: "Owner Name",
                     controller: _ownerController,
-                    validator: (val) {}),
-                BusinessDetailsField(
-                    label: "Business Number",
+                    validator: (val) =>
+                        val.isEmpty ? "Field cannot be empty" : null),
+                Card(
+                  elevation: 3,
+                  child: TextFormField(
                     controller: _numberController,
-                    validator: (val) {}),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    ],
+                    keyboardType: TextInputType.number,
+                    validator: (val) =>
+                        val!.isEmpty ? "Field Cannot be empty." : null,
+                    decoration: InputDecoration(
+                      labelText: "Business Number",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    ),
+                  ),
+                ),
                 BusinessDetailsField(
                     label: "Address",
                     controller: _addressController,
-                    validator: (val) {}),
+                    validator: (val) =>
+                        val.isEmpty ? "Field cannot be empty" : null),
                 BusinessDetailsField(
                     label: "Business Website",
                     controller: _websiteController,
-                    validator: (val) {}),
+                    validator: (val) {
+                      if (val.isNotEmpty) {
+                        if (!val.isURL) {
+                          return "Kindly provide valid url.";
+                        } else {
+                          return null;
+                        }
+                      } else {
+                        return null;
+                      }
+                    }),
                 VerticalHeight(
                   height: 20,
                 ),

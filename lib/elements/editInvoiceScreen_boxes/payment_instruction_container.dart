@@ -9,10 +9,13 @@ class PaymentInstructionContainer extends StatelessWidget {
   String Client;
   String text;
   String text2;
+  String invoiceID;
   final BankDetails bankDetails;
+
   PaymentInstructionContainer(
       {required this.Client,
       required this.text,
+      required this.invoiceID,
       required this.text2,
       required this.bankDetails});
 
@@ -77,6 +80,8 @@ class PaymentInstructionContainer extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Get.to(() => PaymentInstructionScreen(
+                                invoiceID: invoiceID,
+                                isUpdateView: true,
                                 paymentInstructionScreen: bankDetails,
                               ));
                         },

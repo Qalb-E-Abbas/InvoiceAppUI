@@ -45,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen>
           child: FloatingActionButton(
             onPressed: () {
               Get.to(() => AddItemsScreen(
+                    invoiceID: "",
+                    isUpdateView: false,
                     addItem: [],
                   ));
             },
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          //physics: const ClampingScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());

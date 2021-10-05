@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Utiles{
-
+class Utiles {
   static Widget getStyledTextField({
     required TextEditingController controller,
     required String hint,
     required bool isNumber,
-
+    required Function(String) validator,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -23,36 +22,27 @@ class Utiles{
             ),
           ],
         ),
-        child: TextField(
+        child: TextFormField(
           textAlign: TextAlign.start,
+          validator: (val) => validator(val!),
           controller: controller,
           keyboardType: isNumber ? TextInputType.phone : TextInputType.text,
           decoration: InputDecoration(
             border: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.transparent)
-            ),
+                borderSide: new BorderSide(color: Colors.transparent)),
             focusedBorder: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.transparent)
-            ),
+                borderSide: new BorderSide(color: Colors.transparent)),
             enabledBorder: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.transparent)
-            ),
+                borderSide: new BorderSide(color: Colors.transparent)),
             errorBorder: InputBorder.none,
             disabledBorder: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.transparent)
-            ),
-
+                borderSide: new BorderSide(color: Colors.transparent)),
             filled: true,
             fillColor: Colors.white,
             hintText: hint,
             hintStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey
-            ),
-
+                fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
           ),
-
         ),
       ),
     );

@@ -24,6 +24,8 @@ class _ReportPaidViewState extends State<ReportPaidView> {
     Months(name: "August", id: "8"),
     Months(name: "September", id: "9"),
     Months(name: "October", id: "10"),
+    Months(name: "November", id: "11"),
+    Months(name: "December", id: "12"),
   ];
   InvoiceServices _invoiceServices = InvoiceServices();
   int totalCost = 0;
@@ -58,18 +60,24 @@ class _ReportPaidViewState extends State<ReportPaidView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            DynamicFontSize(
-                                label: '2021',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
+                            Container(
+                              width: 70,
+                              child: DynamicFontSize(
+                                  label: '2021',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
                             DynamicFontSize(
                                 label: 'Invoice',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
-                            DynamicFontSize(
-                                label: 'Paid',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700)
+                            Container(
+                              width: 70,
+                              child: DynamicFontSize(
+                                  label: 'Paid',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            )
                           ],
                         ),
                       ),
@@ -91,10 +99,14 @@ class _ReportPaidViewState extends State<ReportPaidView> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        DynamicFontSize(
-                                          label: monthList[i].name,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
+                                        Container(
+                                          width: 70,
+                                          child: DynamicFontSize(
+                                            isAlignCenter: false,
+                                            label: monthList[i].name,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                         DynamicFontSize(
                                           label: context
@@ -104,15 +116,18 @@ class _ReportPaidViewState extends State<ReportPaidView> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
                                         ),
-                                        DynamicFontSize(
-                                          label: context
-                                                  .watch<List<InvoiceModel>>()
-                                                  .isEmpty
-                                              ? ""
-                                              : getTotalCost(context
-                                                  .watch<List<InvoiceModel>>()),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
+                                        Container(
+                                          width: 70,
+                                          child: DynamicFontSize(
+                                            label: context
+                                                    .watch<List<InvoiceModel>>()
+                                                    .isEmpty
+                                                ? "N/A"
+                                                : getTotalCost(context.watch<
+                                                    List<InvoiceModel>>()),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                       ],
                                     ),

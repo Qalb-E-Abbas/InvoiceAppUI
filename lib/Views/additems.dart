@@ -9,14 +9,27 @@ import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/elements/app_button.dart';
+import 'package:invoiceapp/elements/loading_widget.dart';
+import 'package:invoiceapp/elements/navigation_dialog.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
+import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
+import 'Bottom Navigation/bottomNavigation.dart';
 import 'addtax.dart';
 
 class AddItemsScreen extends StatefulWidget {
   final List<AddItem> addItem;
-  const AddItemsScreen({Key? key, required this.addItem}) : super(key: key);
+  final String invoiceID;
+  final bool isUpdateView;
+
+  const AddItemsScreen(
+      {Key? key,
+      required this.addItem,
+      required this.invoiceID,
+      required this.isUpdateView})
+      : super(key: key);
 
   @override
   _AddItemsScreenState createState() => _AddItemsScreenState();
@@ -26,142 +39,218 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   var _labelController = TextEditingController();
   var _quantityController = TextEditingController();
   var _constController = TextEditingController();
+  bool isLoading = false;
+  InvoiceServices _invoiceServices = InvoiceServices();
   int listLength = 1;
+  int totalResult = 0;
   final _formKey = GlobalKey<FormState>();
-  List<AddItemLocal> sizePriceQuantityModel = [
-    AddItemLocal(
-        name: TextEditingController(),
-        cost: TextEditingController(),
-        quantity: TextEditingController())
-  ];
+  List<AddItemLocal> sizePriceQuantityModel = [];
+
+  @override
+  initState() {
+    if (!widget.isUpdateView) {
+      sizePriceQuantityModel = [
+        AddItemLocal(
+            name: TextEditingController(),
+            cost: TextEditingController(),
+            quantity: TextEditingController())
+      ];
+    }
+    if (widget.isUpdateView) {
+      listLength = widget.addItem.length;
+      widget.addItem.map((e) {
+        sizePriceQuantityModel.add(AddItemLocal(
+          name: TextEditingController(text: e.name),
+          quantity: TextEditingController(text: e.quantity),
+          cost: TextEditingController(text: e.cost),
+        ));
+
+        setState(() {});
+      }).toList();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var itemProvider = Provider.of<AddItemProvider>(context);
     var totalCost = Provider.of<TotalCostProvider>(context);
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(text: "Add Item", isClient: false),
-              ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: listLength,
-                  itemBuilder: (context, i) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 20),
-                            child: DynamicFontSize(
-                              fontSize: 14,
-                              label: "Item Name or Service Description",
-                              fontWeight: FontWeight.w700,
+      body: LoadingOverlay(
+        isLoading: isLoading,
+        progressIndicator: LoadingWidget(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomAppBar(text: "Add Item", isClient: false),
+                ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listLength,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 8),
+                              child: DynamicFontSize(
+                                fontSize: 14,
+                                label: "Item Name or Service Description",
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ),
-                          VerticalHeight(
-                            height: 10,
-                          ),
-                          Utiles.getStyledTextField(
-                              controller: sizePriceQuantityModel[i].name,
-                              hint: "item or service description",
-                              isNumber: false),
-                          VerticalHeight(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: DynamicFontSize(
-                              fontSize: 14,
-                              label: "Unit cost",
-                              fontWeight: FontWeight.w700,
+                            VerticalHeight(
+                              height: 10,
                             ),
-                          ),
-                          VerticalHeight(
-                            height: 10,
-                          ),
-                          Utiles.getStyledTextField(
-                              controller: sizePriceQuantityModel[i].cost,
-                              hint: "Enter cost",
-                              isNumber: true),
-                          VerticalHeight(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: DynamicFontSize(
-                              fontSize: 14,
-                              label: "Quantity",
-                              fontWeight: FontWeight.w700,
+                            Utiles.getStyledTextField(
+                                validator: (val) => val.isEmpty
+                                    ? "Field cannot be empty"
+                                    : null,
+                                controller: sizePriceQuantityModel[i].name,
+                                hint: "item or service description",
+                                isNumber: false),
+                            VerticalHeight(
+                              height: 15,
                             ),
-                          ),
-                          VerticalHeight(
-                            height: 10,
-                          ),
-                          Utiles.getStyledTextField(
-                              controller: sizePriceQuantityModel[i].quantity,
-                              hint: "Enter quantity",
-                              isNumber: true),
-                          VerticalHeight(
-                            height: 150,
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppButton(
-                    text: "Add More",
-                    onTap: () {
-                      listLength++;
-                      sizePriceQuantityModel.add(AddItemLocal(
-                          name: TextEditingController(),
-                          cost: TextEditingController(),
-                          quantity: TextEditingController()));
-                      setState(() {});
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: DynamicFontSize(
+                                fontSize: 14,
+                                label: "Unit cost",
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            VerticalHeight(
+                              height: 10,
+                            ),
+                            Utiles.getStyledTextField(
+                                controller: sizePriceQuantityModel[i].cost,
+                                hint: "Enter cost",
+                                isNumber: true),
+                            VerticalHeight(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: DynamicFontSize(
+                                fontSize: 14,
+                                label: "Quantity",
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            VerticalHeight(
+                              height: 10,
+                            ),
+                            Utiles.getStyledTextField(
+                                controller: sizePriceQuantityModel[i].quantity,
+                                hint: "Enter quantity",
+                                isNumber: true),
+                            VerticalHeight(
+                              height: 40,
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppButton(
+                      text: "Add More",
+                      onTap: () {
+                        listLength++;
+                        sizePriceQuantityModel.add(AddItemLocal(
+                            name: TextEditingController(),
+                            cost: TextEditingController(),
+                            quantity: TextEditingController()));
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Button(
+                    text: 'Save',
+                    colors: AppColors.primaryColor,
+                    bordercolor: AppColors.primaryColor,
+                    textcolor: Colors.white,
+                    pressed: () {
+                      if (widget.isUpdateView) {
+                        sizePriceQuantityModel.map((e) {
+                          itemProvider.saveAddItem(AddItem(
+                              name: e.name.text,
+                              cost: e.cost.text,
+                              quantity: e.quantity.text));
+                        }).toList();
+                        sizePriceQuantityModel.map((e) {
+                          totalResult += (int.parse(e.cost.text) *
+                              int.parse(e.quantity.text));
+                          setState(() {});
+                          totalCost.saveTotalCost(totalResult.toString());
+                        }).toList();
+                        print(totalCost.getTotalCost());
+                        isLoading = true;
+                        setState(() {});
+                        _invoiceServices
+                            .updateInvoiceItems(
+                                totalCost: totalResult.toString(),
+                                invoiceID: widget.invoiceID,
+                                addItems: itemProvider.getAddItem())
+                            .then((value) {
+                          isLoading = false;
+                          setState(() {});
+                          showNavigationDialog(context,
+                              message: "Invoice Updated successfully.",
+                              buttonText: "OKay", navigation: () {
+                            itemProvider.clearList();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BottomTab()),
+                                (route) => false);
+                          },
+                              secondButtonText: "secondButtonText",
+                              showSecondButton: false);
+                        });
+                      } else {
+                        sizePriceQuantityModel.map((e) {
+                          itemProvider.saveAddItem(AddItem(
+                              name: e.name.text,
+                              cost: e.cost.text,
+                              quantity: e.quantity.text));
+                        }).toList();
+                        sizePriceQuantityModel.map((e) {
+                          totalResult += (int.parse(e.cost.text) *
+                              int.parse(e.quantity.text));
+                          setState(() {});
+                          totalCost.saveTotalCost(totalResult.toString());
+                        }).toList();
+                        print(totalCost.getTotalCost());
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddTaxScreen(
+                                      inoviceID: "",
+                                      isUpdateView: false,
+                                      tax: Tax(),
+                                    )));
+                      }
                     },
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Button(
-                  text: 'Save',
-                  colors: AppColors.primaryColor,
-                  bordercolor: AppColors.primaryColor,
-                  textcolor: Colors.white,
-                  pressed: () {
-                    sizePriceQuantityModel.map((e) {
-                      itemProvider.saveAddItem(AddItem(
-                          name: e.name.text,
-                          cost: e.cost.text,
-                          quantity: e.quantity.text));
-                    }).toList();
-
-                    // totalCost.saveTotalCost((int.parse(sizePriceQuantityModel[i].text) *
-                    //         int.parse(_quantityController.text))
-                    //     .toString());
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddTaxScreen(
-                                  tax: Tax(),
-                                )));
-                  },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

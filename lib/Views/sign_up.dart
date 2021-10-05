@@ -4,6 +4,7 @@ import 'package:booster/booster.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:image_picker/image_picker.dart';
@@ -146,10 +147,18 @@ class _SignUpState extends State<SignUp> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: AuthTextField(
-                      controller: _websiteController,
-                      validator: (val) =>
-                          val.isEmpty ? "Field Cannot be empty." : null,
-                    ),
+                        controller: _websiteController,
+                        validator: (val) {
+                          if (val.isNotEmpty) {
+                            if (!val.isURL) {
+                              return "Kindly provide valid url.";
+                            } else {
+                              return null;
+                            }
+                          } else {
+                            return null;
+                          }
+                        }),
                   ),
                 ),
                 Booster.verticalSpace(23),
@@ -164,13 +173,25 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: AuthTextField(
-                      controller: _numberController,
-                      validator: (val) =>
-                          val.isEmpty ? "Field Cannot be empty." : null,
-                    ),
-                  ),
+                      alignment: Alignment.centerLeft,
+                      child: TextFormField(
+                        controller: _numberController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        ],
+                        keyboardType: TextInputType.number,
+                        validator: (val) =>
+                            val!.isEmpty ? "Field Cannot be empty." : null,
+                        decoration: InputDecoration(
+                          hintTextDirection: TextDirection.ltr,
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB4B4B4))),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB4B4B4))),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB4B4B4))),
+                        ),
+                      )),
                 ),
                 Booster.verticalSpace(23),
                 Padding(
@@ -249,6 +270,7 @@ class _SignUpState extends State<SignUp> {
                               title: "Kindly select image.",
                               icon: Icons.info_outline,
                               color: Colors.blue);
+                          return;
                         }
                         isLoading = true;
                         setState(() {});

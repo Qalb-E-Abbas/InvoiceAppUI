@@ -1,8 +1,8 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:invoiceapp/Views/additional_details_screen.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 
@@ -12,16 +12,24 @@ class invoo1_container extends StatelessWidget {
   String text1;
   String text2;
   String texdate;
+  String invoiceID;
+  String note;
 
-
-  invoo1_container({required this.ClientName, required this.text, required this.text1, required this.text2, required this.texdate});
+  invoo1_container(
+      {required this.ClientName,
+      required this.text,
+      required this.text1,
+      required this.text2,
+      required this.invoiceID,
+      required this.note,
+      required this.texdate});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Container(
-        height: MediaQuery.of(context).size.height*0.148,
+        height: MediaQuery.of(context).size.height * 0.148,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
@@ -36,19 +44,40 @@ class invoo1_container extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10,),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           child: Column(
-            crossAxisAlignment:CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 20,),
+                padding: const EdgeInsets.only(
+                  top: 20,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    DynamicFontSize(label: ClientName, fontSize: 14,
-                      fontWeight: FontWeight.w600,),
-                    Icon(Icons.edit,color: AppColors.primaryColor,),
-
+                    DynamicFontSize(
+                      label: ClientName,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => AdditionalDetailsScreen(
+                            isUpdateView: true,
+                            invoiceID: invoiceID,
+                            date: text2,
+                            note: note));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -62,27 +91,31 @@ class invoo1_container extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DynamicFontSize(label: text, fontSize: 14,
-                    fontWeight: FontWeight.w600,),
-
-                  DynamicFontSize(label: texdate, fontSize: 12,
-                    fontWeight: FontWeight.w100,),
-
-                  DynamicFontSize(label: text1, fontSize: 14,
-                    fontWeight: FontWeight.w600,),
-
-                  DynamicFontSize(label: text2, fontSize: 12,
-                    fontWeight: FontWeight.w100,),
-
-
-
+                  DynamicFontSize(
+                    label: text,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  DynamicFontSize(
+                    label: texdate,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w100,
+                  ),
+                  DynamicFontSize(
+                    label: text1,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  DynamicFontSize(
+                    label: DateFormat.yMEd().format(DateTime.parse(text2)),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w100,
+                  ),
                 ],
               ),
-
             ],
           ),
         ),

@@ -29,7 +29,18 @@ import 'package:provider/provider.dart';
 import 'Bottom Navigation/bottomNavigation.dart';
 
 class AdditionalDetailsScreen extends StatefulWidget {
-  const AdditionalDetailsScreen({Key? key}) : super(key: key);
+  final String invoiceID;
+  final bool isUpdateView;
+  final String note;
+  final String date;
+
+  const AdditionalDetailsScreen(
+      {Key? key,
+      required this.isUpdateView,
+      required this.invoiceID,
+      required this.date,
+      required this.note})
+      : super(key: key);
 
   @override
   _AdditionalDetailsScreenState createState() =>
@@ -42,11 +53,15 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
   String deviceID = "";
   FlutterSecureStorage _flutterSecureStorage = FlutterSecureStorage();
   Business _business = Business();
-
+  bool isLoading = false;
   DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
+    _noteController = TextEditingController(text: widget.note);
+    if (widget.isUpdateView) {
+      selectedDate = DateTime.parse(widget.date);
+    }
     getDeviceID().then((value) {
       deviceID = value!;
       setState(() {});
@@ -163,44 +178,67 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Button(
                           pressed: () async {
-                            var user = Provider.of<UserProvider>(context,
-                                listen: false);
-                            await _invoiceServices
-                                .createInvoice(context,
-                                    model: InvoiceModel(
-                                        monthID:
-                                            DateTime.now().month.toString(),
-                                        invoiceId:
-                                            "INV 00${context.read<List<InvoiceModel>>().length}",
-                                        date: DateTime.now().toString(),
-                                        dueDate: selectedDate.toString(),
-                                        description: _noteController.text,
-                                        business: user.getUserDetails(),
-                                        bankDetails:
-                                            addBankDetails.getPayment(),
-                                        clientModel: addClient.getClient(),
-                                        status: "UNPAID",
-                                        tax: addTax.getTax(),
-                                        totalCost: totalCost.getTotalCost(),
-                                        discountPrice:
-                                            addDiscount.getDiscount(),
-                                        addItem: addItem.getAddItem()),
-                                    deviceID:
-                                        user.getUserDetails().docID.toString())
-                                .then((value) {
-                              if (status.getStateStatus() ==
-                                  StateStatus.IsFree) {
-                                addItem.clearList();
+                            if (widget.isUpdateView) {
+                              _invoiceServices
+                                  .updateInvoiceAdditionalInstruction(context,
+                                      invoiceID: widget.invoiceID,
+                                      note: _noteController.text,
+                                      dueDate: selectedDate.toString())
+                                  .then((value) {
                                 showNavigationDialog(context,
-                                    message:
-                                        "Invoice has been created successfully.",
-                                    buttonText: "Okay", navigation: () {
-                                  Get.to(() => BottomTab());
+                                    message: "Invoice Updated successfully.",
+                                    buttonText: "OKay", navigation: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BottomTab()),
+                                      (route) => false);
                                 },
                                     secondButtonText: "secondButtonText",
                                     showSecondButton: false);
-                              }
-                            });
+                              });
+                            } else {
+                              var user = Provider.of<UserProvider>(context,
+                                  listen: false);
+                              await _invoiceServices
+                                  .createInvoice(context,
+                                      model: InvoiceModel(
+                                          monthID:
+                                              DateTime.now().month.toString(),
+                                          invoiceId:
+                                              "INV 00${context.read<List<InvoiceModel>>().length}",
+                                          date: DateTime.now().toString(),
+                                          dueDate: selectedDate.toString(),
+                                          description: _noteController.text,
+                                          business: user.getUserDetails(),
+                                          bankDetails:
+                                              addBankDetails.getPayment(),
+                                          clientModel: addClient.getClient(),
+                                          status: "UNPAID",
+                                          tax: addTax.getTax(),
+                                          totalCost: totalCost.getTotalCost(),
+                                          discountPrice:
+                                              addDiscount.getDiscount(),
+                                          addItem: addItem.getAddItem()),
+                                      deviceID: user
+                                          .getUserDetails()
+                                          .docID
+                                          .toString())
+                                  .then((value) {
+                                if (status.getStateStatus() ==
+                                    StateStatus.IsFree) {
+                                  addItem.clearList();
+                                  showNavigationDialog(context,
+                                      message:
+                                          "Invoice has been created successfully.",
+                                      buttonText: "Okay", navigation: () {
+                                    Get.to(() => BottomTab());
+                                  },
+                                      secondButtonText: "secondButtonText",
+                                      showSecondButton: false);
+                                }
+                              });
+                            }
                           },
                           text: "Save",
                           colors: AppColors.primaryColor,
