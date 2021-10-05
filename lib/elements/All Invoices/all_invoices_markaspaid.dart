@@ -118,7 +118,7 @@ class ContainerMarkAsPaid extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                           ),
-                          color: Color(0xffe7b21f),
+                          color: !status ? Color(0xffe7b21f) : Colors.green,
                         ),
                       ),
                     ])),

@@ -15,9 +15,12 @@ class ClientServices {
         .stateStatus(StateStatus.IsBusy);
     DocumentReference docRef =
         FirebaseFirestore.instance.collection('clientsData').doc();
-    await docRef.set(model.toJson(docID: docRef.id, deviceID: deviceID));
-    Provider.of<AppState>(context, listen: false)
-        .stateStatus(StateStatus.IsFree);
+    return await docRef
+        .set(model.toJson(docID: docRef.id, deviceID: deviceID))
+        .then((value) {
+      Provider.of<AppState>(context, listen: false)
+          .stateStatus(StateStatus.IsFree);
+    });
   }
 
   ///Get Clients

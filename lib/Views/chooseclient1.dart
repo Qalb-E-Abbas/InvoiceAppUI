@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invoiceapp/Views/Bottom%20Navigation/bottomNavigation.dart';
 import 'package:invoiceapp/Views/addclient.dart';
 import 'package:invoiceapp/application/client_provider.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
@@ -38,113 +40,123 @@ class _DisplayMyClientsViewState extends State<DisplayMyClientsView> {
   Widget build(BuildContext context) {
     var addClient = Provider.of<AddClientProvider>(context);
     var user = Provider.of<UserProvider>(context);
-    return LoadingOverlay(
-      isLoading: isLoading,
-      progressIndicator: LoadingWidget(),
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        floatingActionButton: CircleAvatar(
-          radius: 33,
-          backgroundColor: Colors.white,
-          child: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AddClientScreen()));
-            },
-            backgroundColor: AppColors.primaryColor,
-            child: Icon(Icons.add),
+    return WillPopScope(
+      onWillPop: () async {
+        return await Get.offAll(() => BottomTab());
+      },
+      child: LoadingOverlay(
+        isLoading: isLoading,
+        progressIndicator: LoadingWidget(),
+        child: Scaffold(
+          backgroundColor: Colors.grey[200],
+          floatingActionButton: CircleAvatar(
+            radius: 33,
+            backgroundColor: Colors.white,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddClientScreen()));
+              },
+              backgroundColor: AppColors.primaryColor,
+              child: Icon(Icons.add),
+            ),
           ),
-        ),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.13,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15),
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.13,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
+                      ),
+                      color: AppColors.primaryColor,
                     ),
-                    color: AppColors.primaryColor,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 50),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Client",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Client",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                VerticalHeight(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Clients",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
+                  VerticalHeight(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            "Clients",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                      VerticalHeight(
-                        height: 10,
-                      ),
-                      StreamProvider.value(
-                        value: _clientServices
-                            .streamMyClient(user.getUserDetails().docID!),
-                        initialData: [ClientModel()],
-                        builder: (context, child) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount:
-                                  context.watch<List<ClientModel>>().length,
-                              itemBuilder: (context, i) {
-                                return context
-                                        .watch<List<ClientModel>>()
-                                        .isNotEmpty
-                                    ? context
-                                                .watch<List<ClientModel>>()[0]
-                                                .docId ==
-                                            null
-                                        ? LoadingWidget()
-                                        : ListTile(
-                                            title: Text(context
-                                                .watch<List<ClientModel>>()[i]
-                                                .name
-                                                .toString()))
-                                    : NoData();
-                              });
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                        VerticalHeight(
+                          height: 10,
+                        ),
+                        StreamProvider.value(
+                          value: _clientServices
+                              .streamMyClient(user.getUserDetails().docID!),
+                          initialData: [ClientModel()],
+                          builder: (context, child) {
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount:
+                                    context.watch<List<ClientModel>>().length,
+                                itemBuilder: (context, i) {
+                                  return context
+                                          .watch<List<ClientModel>>()
+                                          .isNotEmpty
+                                      ? context
+                                                  .watch<List<ClientModel>>()[0]
+                                                  .docId ==
+                                              null
+                                          ? LoadingWidget()
+                                          : Card(
+                                              elevation: 3,
+                                              child: ListTile(
+                                                  title: Text(context
+                                                      .watch<
+                                                          List<
+                                                              ClientModel>>()[i]
+                                                      .name
+                                                      .toString())),
+                                            )
+                                      : NoData();
+                                });
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:invoiceapp/application/add_tax_provider.dart';
 import 'package:invoiceapp/common/Textformfeild.dart';
 import 'package:invoiceapp/common/button.dart';
@@ -125,10 +126,55 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Utiles.getStyledTextField(
-                        controller: _rateController,
-                        hint: "Enter Rate",
-                        isNumber: false),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: 60,
+                        width: double.infinity,
+                        //color: Colors.black,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                              blurRadius: 7,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: TextFormField(
+                          textAlign: TextAlign.start,
+                          validator: (val) =>
+                              val!.isEmpty ? "Field Cannot be empty." : null,
+                          controller: _rateController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    new BorderSide(color: Colors.transparent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    new BorderSide(color: Colors.transparent)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    new BorderSide(color: Colors.transparent)),
+                            errorBorder: InputBorder.none,
+                            disabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    new BorderSide(color: Colors.transparent)),
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: "Enter Rate",
+                            hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
                     VerticalHeight(
                       height: 150,
                     ),
@@ -147,7 +193,9 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                                     tax: Tax(
                                         name: _nameController.text,
                                         number: _labelController.text,
-                                        rate: _rateController.text))
+                                        rate: _rateController.text == ""
+                                            ? "0"
+                                            : _rateController.text))
                                 .then((value) {
                               isLoading = false;
                               setState(() {});

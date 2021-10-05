@@ -16,10 +16,8 @@ import 'package:invoiceapp/application/total_cost.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/common/button.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
-import 'package:invoiceapp/elements/AdditionalDetailsScreen_elements/switch_element.dart';
 import 'package:invoiceapp/elements/navigation_dialog.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
@@ -73,12 +71,14 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
   Widget build(BuildContext context) {
     var status = Provider.of<AppState>(context);
     return LoadingOverlay(
-      isLoading: status.getStateStatus() == StateStatus.IsBusy,
+      isLoading: isLoading,
       child: Scaffold(
         body: _getUI(context),
       ),
     );
   }
+
+  int invoiceCounter = 0;
 
   Widget _getUI(BuildContext context) {
     var status = Provider.of<AppState>(context);
@@ -103,6 +103,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                 _invoiceServices.streamMyInvoice(user.getUserDetails().docID!),
             initialData: [InvoiceModel()],
             builder: (context, child) {
+              invoiceCounter = context.watch<List<InvoiceModel>>().length;
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -130,17 +131,6 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                     ),
                     VerticalHeight(
                       height: 20,
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      child: ListTile(
-                        leading: DynamicFontSize(
-                          fontSize: 14,
-                          label: 'Save as default',
-                          fontWeight: FontWeight.w100,
-                        ),
-                        trailing: SwitchWidget(),
-                      ),
                     ),
                     VerticalHeight(
                       height: 20,
@@ -178,6 +168,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Button(
                           pressed: () async {
+                            isLoading = true;
+                            setState(() {});
                             if (widget.isUpdateView) {
                               _invoiceServices
                                   .updateInvoiceAdditionalInstruction(context,
@@ -185,6 +177,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                       note: _noteController.text,
                                       dueDate: selectedDate.toString())
                                   .then((value) {
+                                isLoading = false;
+                                setState(() {});
                                 showNavigationDialog(context,
                                     message: "Invoice Updated successfully.",
                                     buttonText: "OKay", navigation: () {
@@ -205,8 +199,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                       model: InvoiceModel(
                                           monthID:
                                               DateTime.now().month.toString(),
-                                          invoiceId:
-                                              "INV 00${context.read<List<InvoiceModel>>().length}",
+                                          invoiceId: "INV 00$invoiceCounter",
                                           date: DateTime.now().toString(),
                                           dueDate: selectedDate.toString(),
                                           description: _noteController.text,
@@ -225,18 +218,17 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                           .docID
                                           .toString())
                                   .then((value) {
-                                if (status.getStateStatus() ==
-                                    StateStatus.IsFree) {
-                                  addItem.clearList();
-                                  showNavigationDialog(context,
-                                      message:
-                                          "Invoice has been created successfully.",
-                                      buttonText: "Okay", navigation: () {
-                                    Get.to(() => BottomTab());
-                                  },
-                                      secondButtonText: "secondButtonText",
-                                      showSecondButton: false);
-                                }
+                                isLoading = true;
+                                setState(() {});
+                                addItem.clearList();
+                                showNavigationDialog(context,
+                                    message:
+                                        "Invoice has been created successfully.",
+                                    buttonText: "Okay", navigation: () {
+                                  Get.to(() => BottomTab());
+                                },
+                                    secondButtonText: "secondButtonText",
+                                    showSecondButton: false);
                               });
                             }
                           },

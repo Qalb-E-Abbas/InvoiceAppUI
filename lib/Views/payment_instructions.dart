@@ -6,6 +6,7 @@ import 'package:invoiceapp/common/Textformfeild.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/elements/app_button.dart';
 import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/elements/navigation_dialog.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
@@ -90,41 +91,46 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                   VerticalHeight(
                     height: 20,
                   ),
-                  RaisedButton(onPressed: () {
-                    if (widget.isUpdateView) {
-                      isLoading = true;
-                      setState(() {});
-                      _invoiceServices
-                          .updateInvoiceBankDetails(
-                              invoiceID: widget.invoiceID,
-                              bankDetails:
-                                  BankDetails(other: _toController.text))
-                          .then((value) {
-                        isLoading = false;
-                        setState(() {});
-                        showNavigationDialog(context,
-                            message: "Invoice Updated successfully.",
-                            buttonText: "OKay", navigation: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BottomTab()),
-                              (route) => false);
-                        },
-                            secondButtonText: "secondButtonText",
-                            showSecondButton: false);
-                      });
-                    } else {
-                      Get.to(() => AdditionalDetailsScreen(
-                            date: "",
-                            note: "",
-                            isUpdateView: false,
-                            invoiceID: "",
-                          ));
-                      bankInstruction
-                          .savePayment(BankDetails(other: _toController.text));
-                    }
-                  })
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppButton(
+                        text: "Next",
+                        onTap: () {
+                          if (widget.isUpdateView) {
+                            isLoading = true;
+                            setState(() {});
+                            _invoiceServices
+                                .updateInvoiceBankDetails(
+                                    invoiceID: widget.invoiceID,
+                                    bankDetails:
+                                        BankDetails(other: _toController.text))
+                                .then((value) {
+                              isLoading = false;
+                              setState(() {});
+                              showNavigationDialog(context,
+                                  message: "Invoice Updated successfully.",
+                                  buttonText: "OKay", navigation: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => BottomTab()),
+                                    (route) => false);
+                              },
+                                  secondButtonText: "secondButtonText",
+                                  showSecondButton: false);
+                            });
+                          } else {
+                            Get.to(() => AdditionalDetailsScreen(
+                                  date: "",
+                                  note: "",
+                                  isUpdateView: false,
+                                  invoiceID: "",
+                                ));
+                            bankInstruction.savePayment(
+                                BankDetails(other: _toController.text));
+                          }
+                        }),
+                  )
                 ],
               ),
             ),

@@ -215,38 +215,43 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                   VerticalHeight(
                     height: 5,
                   ),
-                  DescriptionWidget(
-                    text: 'Luram Epsum',
-                    text1: 'Discount',
-                    text2: widget.invoiceModel.discountPrice!.value.toString(),
-                    color1: AppColors.blackColor,
-                    hasFirst: false,
-                  ),
+                  if (widget.invoiceModel.discountPrice!.value != "0")
+                    DescriptionWidget(
+                      text: 'Luram Epsum',
+                      text1: 'Discount',
+                      text2:
+                          widget.invoiceModel.discountPrice!.value.toString(),
+                      color1: AppColors.blackColor,
+                      hasFirst: false,
+                    ),
                   VerticalHeight(
                     height: 5,
                   ),
-                  DescriptionWidget(
-                    text: 'Luram Epsum',
-                    text1: 'Subtotal',
-                    text2: getSubTotalPrice(
-                      totalCost:
-                          int.parse(widget.invoiceModel.totalCost.toString()),
-                      discountPrice: int.parse(
-                          widget.invoiceModel.discountPrice!.value.toString()),
-                    ).toString(),
-                    color1: AppColors.blackColor,
-                    hasFirst: false,
-                  ),
+                  if (widget.invoiceModel.discountPrice!.value != "0")
+                    DescriptionWidget(
+                      text: 'Luram Epsum',
+                      text1: 'Subtotal',
+                      text2: getSubTotalPrice(
+                        totalCost:
+                            int.parse(widget.invoiceModel.totalCost.toString()),
+                        discountPrice: int.parse(widget
+                            .invoiceModel.discountPrice!.value
+                            .toString()),
+                      ).toString(),
+                      color1: AppColors.blackColor,
+                      hasFirst: false,
+                    ),
                   VerticalHeight(
                     height: 5,
                   ),
-                  DescriptionWidget(
-                    text: 'Luram Epsum',
-                    text1: 'Tax',
-                    text2: widget.invoiceModel.tax!.rate.toString(),
-                    color1: AppColors.blackColor,
-                    hasFirst: false,
-                  ),
+                  if (widget.invoiceModel.tax!.rate != "0")
+                    DescriptionWidget(
+                      text: 'Luram Epsum',
+                      text1: 'Tax',
+                      text2: widget.invoiceModel.tax!.rate.toString(),
+                      color1: AppColors.blackColor,
+                      hasFirst: false,
+                    ),
                   VerticalHeight(
                     height: 5,
                   ),
@@ -265,6 +270,9 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                         .toString(),
                     color1: AppColors.blackColor,
                     hasFirst: false,
+                  ),
+                  VerticalHeight(
+                    height: 10,
                   ),
                 ],
               ),
@@ -338,6 +346,6 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
   }
 
   int getTotalPrice({required int subTotal, required int tax}) {
-    return subTotal * tax;
+    return tax == 0 ? subTotal * 1 : subTotal * tax;
   }
 }

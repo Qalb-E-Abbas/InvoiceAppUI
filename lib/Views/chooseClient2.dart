@@ -78,7 +78,7 @@ class _ChooseClient2State extends State<ChooseClient2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(text: "Client", isClient: true),
+                CustomAppBar(text: "Client", isClient: false),
                 VerticalHeight(
                   height: 20,
                 ),
@@ -101,7 +101,8 @@ class _ChooseClient2State extends State<ChooseClient2> {
                         height: 10,
                       ),
                       StreamProvider.value(
-                        value: _clientServices.streamMyClient(deviceID),
+                        value: _clientServices
+                            .streamMyClient(user.getUserDetails().docID!),
                         initialData: [ClientModel()],
                         builder: (context, child) {
                           return ListView.builder(
@@ -109,130 +110,140 @@ class _ChooseClient2State extends State<ChooseClient2> {
                               itemCount:
                                   context.watch<List<ClientModel>>().length,
                               itemBuilder: (context, i) {
-                                return InkWell(
-                                    onTap: () {
-                                      if (widget.isUpdateView) {
-                                        isLoading = true;
-                                        setState(() {});
-                                        showNavigationDialog(context,
-                                            message:
-                                                "Do you really want to update client info?",
-                                            buttonText: "Yes", navigation: () {
-                                          _invoiceServices
-                                              .updateInvoiceClient(
-                                                  userID: user
-                                                      .getUserDetails()
-                                                      .docID
-                                                      .toString(),
-                                                  invoiceID: widget.invoiceID,
-                                                  clientModel: ClientModel(
-                                                    name: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .name,
-                                                    email: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .email,
-                                                    deviceID: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .deviceID,
-                                                    fax: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .fax,
-                                                    number: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .number,
-                                                    address: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .address,
-                                                    docId: context
-                                                        .read<
-                                                            List<
-                                                                ClientModel>>()[
-                                                            i]
-                                                        .docId,
-                                                  ))
-                                              .then((value) {
-                                            isLoading = false;
+                                return Card(
+                                  elevation: 3,
+                                  child: ListTile(
+                                      trailing: IconButton(
+                                        icon: Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 14,
+                                        ),
+                                        onPressed: () {
+                                          if (widget.isUpdateView) {
+                                            isLoading = true;
                                             setState(() {});
                                             showNavigationDialog(context,
                                                 message:
-                                                    "Invoice Updated successfully.",
-                                                buttonText: "OKay",
+                                                    "Do you really want to update client info?",
+                                                buttonText: "Yes",
                                                 navigation: () {
-                                              Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          BottomTab()),
-                                                  (route) => false);
+                                              _invoiceServices
+                                                  .updateInvoiceClient(
+                                                      userID: user
+                                                          .getUserDetails()
+                                                          .docID
+                                                          .toString(),
+                                                      invoiceID:
+                                                          widget.invoiceID,
+                                                      clientModel: ClientModel(
+                                                        name: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .name,
+                                                        email: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .email,
+                                                        deviceID: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .deviceID,
+                                                        fax: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .fax,
+                                                        number: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .number,
+                                                        address: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .address,
+                                                        docId: context
+                                                            .read<
+                                                                List<
+                                                                    ClientModel>>()[
+                                                                i]
+                                                            .docId,
+                                                      ))
+                                                  .then((value) {
+                                                isLoading = false;
+                                                setState(() {});
+                                                showNavigationDialog(context,
+                                                    message:
+                                                        "Invoice Updated successfully.",
+                                                    buttonText: "OKay",
+                                                    navigation: () {
+                                                  Navigator.pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              BottomTab()),
+                                                      (route) => false);
+                                                },
+                                                    secondButtonText:
+                                                        "secondButtonText",
+                                                    showSecondButton: false);
+                                              });
                                             },
-                                                secondButtonText:
-                                                    "secondButtonText",
-                                                showSecondButton: false);
-                                          });
-                                        },
-                                            secondButtonText: "No",
-                                            showSecondButton: true);
-                                      } else {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PaymentInstructionScreen(
-                                                      invoiceID: "",
-                                                      paymentInstructionScreen:
-                                                          BankDetails(),
-                                                      isUpdateView: false,
-                                                    )));
+                                                secondButtonText: "No",
+                                                showSecondButton: true);
+                                          } else {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PaymentInstructionScreen(
+                                                          invoiceID: "",
+                                                          paymentInstructionScreen:
+                                                              BankDetails(),
+                                                          isUpdateView: false,
+                                                        )));
 
-                                        addClient.saveClient(ClientModel(
-                                          name: context
-                                              .read<List<ClientModel>>()[i]
-                                              .name,
-                                          email: context
-                                              .read<List<ClientModel>>()[i]
-                                              .email,
-                                          deviceID: context
-                                              .read<List<ClientModel>>()[i]
-                                              .deviceID,
-                                          fax: context
-                                              .read<List<ClientModel>>()[i]
-                                              .fax,
-                                          number: context
-                                              .read<List<ClientModel>>()[i]
-                                              .number,
-                                          address: context
-                                              .read<List<ClientModel>>()[i]
-                                              .address,
-                                          docId: context
-                                              .read<List<ClientModel>>()[i]
-                                              .docId,
-                                        ));
-                                      }
-                                    },
-                                    child: ListTile(
-                                        title: Text(context
-                                            .watch<List<ClientModel>>()[i]
-                                            .name
-                                            .toString())));
+                                            addClient.saveClient(ClientModel(
+                                              name: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .name,
+                                              email: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .email,
+                                              deviceID: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .deviceID,
+                                              fax: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .fax,
+                                              number: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .number,
+                                              address: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .address,
+                                              docId: context
+                                                  .read<List<ClientModel>>()[i]
+                                                  .docId,
+                                            ));
+                                          }
+                                        },
+                                      ),
+                                      title: Text(context
+                                          .watch<List<ClientModel>>()[i]
+                                          .name
+                                          .toString())),
+                                );
                               });
                         },
                       ),

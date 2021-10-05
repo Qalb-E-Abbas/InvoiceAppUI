@@ -94,8 +94,8 @@ class InvoiceModel {
 class AddItem {
   AddItem({
     this.name,
-    this.cost,
-    this.quantity,
+    this.cost = "0",
+    this.quantity = "0",
   });
 
   String? name;
@@ -158,7 +158,7 @@ class Business {
 class DiscountPrice {
   DiscountPrice({
     this.label,
-    this.value,
+    this.value = "0",
   });
 
   String? label;
@@ -207,7 +207,7 @@ class Tax {
   Tax({
     this.name,
     this.number,
-    this.rate,
+    this.rate = "0",
   });
 
   String? name;

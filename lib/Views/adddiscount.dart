@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:invoiceapp/Views/Bottom%20Navigation/bottomNavigation.dart';
 import 'package:invoiceapp/application/add_discount_provider.dart';
-import 'package:invoiceapp/common/Textformfeild.dart';
 import 'package:invoiceapp/common/button.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+import 'package:invoiceapp/elements/flushBar.dart';
 import 'package:invoiceapp/elements/loading_widget.dart';
 import 'package:invoiceapp/elements/navigation_dialog.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
@@ -86,21 +87,57 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
               VerticalHeight(
                 height: 20,
               ),
-              Utiles.getStyledTextField(
-                  controller: _prcntController,
-                  hint: "if % then add % or if flat amount, select it.",
-                  isNumber: false),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 60,
+                  width: double.infinity,
+                  //color: Colors.black,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        blurRadius: 7,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    validator: (val) =>
+                        val!.isEmpty ? "Field Cannot be empty." : null,
+                    controller: _prcntController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    ],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide:
+                              new BorderSide(color: Colors.transparent)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              new BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              new BorderSide(color: Colors.transparent)),
+                      errorBorder: InputBorder.none,
+                      disabledBorder: OutlineInputBorder(
+                          borderSide:
+                              new BorderSide(color: Colors.transparent)),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "Enter Discount Amount",
+                      hintStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
               VerticalHeight(
                 height: 13,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: DynamicFontSize(
-                  fontSize: 13,
-                  color: AppColors.primaryColor,
-                  label: "Note: Percentage value must be a valid number.",
-                  fontWeight: FontWeight.w700,
-                ),
               ),
               VerticalHeight(
                 height: 150,
@@ -113,6 +150,14 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                   bordercolor: AppColors.primaryColor,
                   textcolor: Colors.white,
                   pressed: () {
+                    if (int.parse(_prcntController.text) < 0 ||
+                        int.parse(_prcntController.text) > 99) {
+                      getFlushBar(context,
+                          title: "Discount must be in between 0 and 100",
+                          icon: Icons.info_outline,
+                          color: Colors.blue);
+                      return;
+                    }
                     if (widget.isUpdateView) {
                       isLoading = true;
                       setState(() {});
@@ -120,7 +165,10 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                           .updateInvoiceDiscount(
                               invoiceID: widget.invoiceID.toString(),
                               discountPrice: DiscountPrice(
-                                  label: "", value: _prcntController.text))
+                                  label: "",
+                                  value: _prcntController.text == ""
+                                      ? "0"
+                                      : _prcntController.text))
                           .then((value) {
                         isLoading = false;
                         setState(() {});

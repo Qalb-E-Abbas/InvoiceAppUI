@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/chooseClient2.dart';
+import 'package:invoiceapp/Views/chooseclient1.dart';
 import 'package:invoiceapp/application/app_state.dart';
 import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
@@ -152,12 +152,12 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Button(
-                      pressed: () {
+                      pressed: () async {
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        getDeviceID().then((value) {
-                          _clientServices.createClient(
+                        await getDeviceID().then((value) async {
+                          await _clientServices.createClient(
                             context,
                             model: ClientModel(
                               name: _clientNameController.text,
@@ -169,26 +169,17 @@ class _AddClientScreenState extends State<AddClientScreen> {
                             ),
                             deviceID: user.getUserDetails().docID!,
                           );
+                        }).then((value) {
+                          if (status.getStateStatus() == StateStatus.IsFree) {
+                            showNavigationDialog(context,
+                                message: "Client added successfully.",
+                                buttonText: "Okay", navigation: () {
+                              Get.to(() => DisplayMyClientsView());
+                            },
+                                secondButtonText: "secondButtonText",
+                                showSecondButton: false);
+                          }
                         });
-
-                        if (status.getStateStatus() == StateStatus.IsFree) {
-                          showNavigationDialog(context,
-                              message: "Client added successfully.",
-                              buttonText: "Okay", navigation: () {
-                            Get.to(() => ChooseClient2(
-                                  clientModel: ClientModel(),
-                                  isUpdateView: false,
-                                  invoiceID: "",
-                                ));
-                          },
-                              secondButtonText: "secondButtonText",
-                              showSecondButton: false);
-                        }
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddClientScreen()));
                       },
                       text: "Save Client",
                       colors: AppColors.primaryColor,
