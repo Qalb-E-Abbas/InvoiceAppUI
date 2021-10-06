@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/application/helpers/device_info.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
 import 'package:invoiceapp/elements/loading_widget.dart';
@@ -20,10 +19,6 @@ class _OutStandingScreenState extends State<OutStandingScreen> {
 
   @override
   initState() {
-    getDeviceID().then((value) {
-      deviceID = value!;
-      setState(() {});
-    });
     super.initState();
   }
 

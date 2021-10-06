@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/Views/previewinVoice.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
-import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 
 import '../editinvoicescreen.dart';
@@ -35,18 +34,6 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[300],
-        floatingActionButton: CircleAvatar(
-          radius: 33,
-          backgroundColor: Colors.white,
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: AppColors.primaryColor,
-            child: Icon(
-              Icons.send,
-              color: Colors.white,
-            ),
-          ),
-        ),
         body: Column(
           children: [
             CustomAppBar(

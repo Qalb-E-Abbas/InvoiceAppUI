@@ -55,6 +55,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   initState() {
     if (widget.isUpdateView) {
+      sizePriceQuantityModel.clear();
+      setState(() {});
       listLength = widget.addItem.length;
       widget.addItem.map((e) {
         sizePriceQuantityModel.add(AddItemLocal(

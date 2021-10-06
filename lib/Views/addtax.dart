@@ -147,7 +147,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                               val!.isEmpty ? "Field Cannot be empty." : null,
                           controller: _rateController,
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
                           ],
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(

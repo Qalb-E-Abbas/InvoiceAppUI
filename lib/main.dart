@@ -7,6 +7,7 @@ import 'package:invoiceapp/application/client_provider.dart';
 import 'package:invoiceapp/application/payment_provider.dart';
 import 'package:invoiceapp/application/total_cost.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'Views/sign_in.dart';
@@ -22,8 +23,28 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  getPermission() async {
+    var status = await Permission.storage.status;
+    // You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+    print(statuses[
+        Permission.storage]); // it should print PermissionStatus.granted
+  }
+
+  initState() {
+    getPermission();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

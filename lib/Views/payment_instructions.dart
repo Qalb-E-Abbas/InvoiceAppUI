@@ -95,19 +95,19 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: AppButton(
                         text: "Next",
-                        onTap: () {
+                        onTap: () async {
                           if (widget.isUpdateView) {
                             isLoading = true;
                             setState(() {});
-                            _invoiceServices
+                            await _invoiceServices
                                 .updateInvoiceBankDetails(
                                     invoiceID: widget.invoiceID,
                                     bankDetails:
                                         BankDetails(other: _toController.text))
-                                .then((value) {
+                                .then((value) async {
                               isLoading = false;
                               setState(() {});
-                              showNavigationDialog(context,
+                              await showNavigationDialog(context,
                                   message: "Invoice Updated successfully.",
                                   buttonText: "OKay", navigation: () {
                                 Navigator.pushAndRemoveUntil(

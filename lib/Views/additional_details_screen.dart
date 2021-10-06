@@ -19,6 +19,7 @@ import 'package:invoiceapp/common/custom_appBar.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/elements/navigation_dialog.dart';
+import 'package:invoiceapp/infratstrucutre/models/invoice_counter_model.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -99,11 +100,10 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                 logo: data['logo'],
                 businessName: data['businessName']);
           return StreamProvider.value(
-            value:
-                _invoiceServices.streamMyInvoice(user.getUserDetails().docID!),
-            initialData: [InvoiceModel()],
+            value: _invoiceServices
+                .getInvoiceCounter(user.getUserDetails().docID!),
+            initialData: [InvoiceCounter()],
             builder: (context, child) {
-              invoiceCounter = context.watch<List<InvoiceModel>>().length;
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -168,6 +168,14 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Button(
                           pressed: () async {
+                            invoiceCounter =
+                                context.read<List<InvoiceCounter>>().length + 1;
+                            setState(() {});
+                            print("Counter : $invoiceCounter");
+                            print(
+                              "INV 00$invoiceCounter",
+                            );
+                            return;
                             isLoading = true;
                             setState(() {});
                             if (widget.isUpdateView) {
@@ -218,6 +226,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                           .docID
                                           .toString())
                                   .then((value) {
+                                _invoiceServices
+                                    .incrementInvoiceCounter(context);
                                 isLoading = true;
                                 setState(() {});
                                 addItem.clearList();

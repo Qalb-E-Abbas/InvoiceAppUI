@@ -149,7 +149,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                   colors: AppColors.primaryColor,
                   bordercolor: AppColors.primaryColor,
                   textcolor: Colors.white,
-                  pressed: () {
+                  pressed: () async {
                     if (int.parse(_prcntController.text) < 0 ||
                         int.parse(_prcntController.text) > 99) {
                       getFlushBar(context,
@@ -161,7 +161,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                     if (widget.isUpdateView) {
                       isLoading = true;
                       setState(() {});
-                      _invoiceServices
+                      await _invoiceServices
                           .updateInvoiceDiscount(
                               invoiceID: widget.invoiceID.toString(),
                               discountPrice: DiscountPrice(

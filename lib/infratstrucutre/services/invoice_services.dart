@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/app_state.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
+import 'package:invoiceapp/infratstrucutre/models/invoice_counter_model.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:provider/provider.dart';
 
@@ -144,5 +146,25 @@ class InvoiceServices {
       Provider.of<AppState>(context, listen: false)
           .stateStatus(StateStatus.IsFree);
     });
+  }
+
+  ///Increment Invoice Counter
+  Future<void> incrementInvoiceCounter(BuildContext context) async {
+    var user = Provider.of<UserProvider>(context, listen: false);
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('invoiceCounter').doc();
+    return await docRef.set(InvoiceCounter()
+        .toJson(userID: user.getUserDetails().docID!, docID: docRef.id));
+  }
+
+  ///Get Invoice Counter
+  Stream<List<InvoiceCounter>> getInvoiceCounter(String uid) {
+    print("UID : $uid");
+    return FirebaseFirestore.instance
+        .collection('invoiceCounter')
+        .where('userID', isEqualTo: uid)
+        .snapshots()
+        .map((event) =>
+            event.docs.map((e) => InvoiceCounter.fromJson(e.data())).toList());
   }
 }

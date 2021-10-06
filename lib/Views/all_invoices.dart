@@ -35,7 +35,7 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
     print(totalCost.getTotalCost());
     return SingleChildScrollView(
       child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height + 600,
           color: Colors.grey[300],
           child: StreamProvider.value(
             value:
@@ -43,6 +43,7 @@ class _ALLInvoiceScreenState extends State<ALLInvoiceScreen> {
             initialData: [InvoiceModel()],
             builder: (context, child) {
               return ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: context.watch<List<InvoiceModel>>().length,
