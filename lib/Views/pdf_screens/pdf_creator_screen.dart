@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Views/pdf_screens/pdf_report.dart';
 
 class PDFCreator extends StatefulWidget {
   @override
@@ -24,9 +23,7 @@ class _PDFCreatorState extends State<PDFCreator> {
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   color: Colors.blue,
-                  onPressed: () {
-                    reportView(context);
-                  }))),
+                  onPressed: () {}))),
     );
   }
 }

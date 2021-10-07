@@ -3,10 +3,9 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
-import 'package:invoiceapp/Views/pdf_screens/pdf_creator_screen.dart';
+import 'package:invoiceapp/Views/pdf_screens/pdf_report.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
@@ -181,7 +180,6 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              RechargeRowElements('Racharge', 'Avjdf'),
                               RechargeRowElements(
                                 'Date',
                                 DateFormat.yMEd()
@@ -369,7 +367,26 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
           ),
           AppButton(
               onTap: () {
-                Get.to(() => PDFCreator());
+                reportView(
+                  context,
+                  invoiceModel: widget.invoiceModel,
+                  total: getTotalPrice(
+                          subTotal: getSubTotalPrice(
+                              totalCost: int.parse(
+                                  widget.invoiceModel.totalCost.toString()),
+                              discountPrice: int.parse(widget
+                                  .invoiceModel.discountPrice!.value
+                                  .toString())),
+                          tax: double.parse(
+                              widget.invoiceModel.tax!.rate.toString()))
+                      .toString(),
+                  subTotal: getSubTotalPrice(
+                    totalCost:
+                        int.parse(widget.invoiceModel.totalCost.toString()),
+                    discountPrice: int.parse(
+                        widget.invoiceModel.discountPrice!.value.toString()),
+                  ).toString(),
+                );
                 // screenshotController
                 //     .capture(delay: Duration(milliseconds: 10))
                 //     .then((capturedImage) async {

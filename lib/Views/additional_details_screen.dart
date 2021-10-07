@@ -104,6 +104,10 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                 .getInvoiceCounter(user.getUserDetails().docID!),
             initialData: [InvoiceCounter()],
             builder: (context, child) {
+              context
+                  .watch<List<InvoiceCounter>>()
+                  .map((e) => print(e.docID))
+                  .toList();
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -172,10 +176,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                 context.read<List<InvoiceCounter>>().length + 1;
                             setState(() {});
                             print("Counter : $invoiceCounter");
-                            print(
-                              "INV 00$invoiceCounter",
-                            );
-                            return;
+
                             isLoading = true;
                             setState(() {});
                             if (widget.isUpdateView) {
