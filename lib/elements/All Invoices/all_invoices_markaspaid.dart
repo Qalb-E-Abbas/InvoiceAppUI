@@ -30,109 +30,109 @@ class ContainerMarkAsPaid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appStatus = Provider.of<AppState>(context);
-    return Container(
-      height: 125,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3),
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    ClientName,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.to(() =>
-                          EditPreviewInvoiceTabs(invoiceModel: invoiceModel));
-                    },
-                    child: Icon(
+    return InkWell(
+      onTap: () {
+        Get.to(() => EditPreviewInvoiceTabs(invoiceModel: invoiceModel));
+      },
+      child: Container(
+        height: 125,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3),
+          color: Colors.white,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      ClientName,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Icon(
                       icon,
                       color: AppColors.primaryColor,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 25),
-                        child: Text(
-                          text,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: MaterialButton(
-                          onPressed: () async {
-                            if (!status) {
-                              await _invoiceServices
-                                  .updateInvoice(
-                                      context, invoiceModel.docID.toString())
-                                  .then((value) {
-                                if (appStatus.getStateStatus() ==
-                                    StateStatus.IsFree) {
-                                  showNavigationDialog(context,
-                                      message: "Status updated sucessfully",
-                                      buttonText: "Okay", navigation: () {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => BottomTab()),
-                                        (_) => false);
-                                  },
-                                      secondButtonText: "secondButtonText",
-                                      showSecondButton: false);
-                                }
-                              });
-                            }
-                          },
-                          height: 30,
-                          minWidth: 40,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
+              Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 25),
                           child: Text(
-                            !status ? "Mark as paid" : "Paid",
+                            text,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
                           ),
-                          color: !status ? Color(0xffe7b21f) : Colors.green,
                         ),
-                      ),
-                    ])),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                price,
-                style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: MaterialButton(
+                            onPressed: () async {
+                              if (!status) {
+                                await _invoiceServices
+                                    .updateInvoice(
+                                        context, invoiceModel.docID.toString())
+                                    .then((value) {
+                                  if (appStatus.getStateStatus() ==
+                                      StateStatus.IsFree) {
+                                    showNavigationDialog(context,
+                                        message: "Status updated sucessfully",
+                                        buttonText: "Okay", navigation: () {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BottomTab()),
+                                          (_) => false);
+                                    },
+                                        secondButtonText: "secondButtonText",
+                                        showSecondButton: false);
+                                  }
+                                });
+                              }
+                            },
+                            height: 30,
+                            minWidth: 40,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              !status ? "Mark as paid" : "Paid",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            color: !status ? Color(0xffe7b21f) : Colors.green,
+                          ),
+                        ),
+                      ])),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  price,
+                  style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

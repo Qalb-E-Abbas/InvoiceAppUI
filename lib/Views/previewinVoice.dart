@@ -77,11 +77,6 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                           SizedBox(
                             width: 20,
                           ),
-                          DynamicFontSize(
-                            label: "Invoice # ${widget.invoiceModel.invoiceId}",
-                            fontSize: 21,
-                            color: Colors.green,
-                          ),
                         ],
                       ),
                     ),
@@ -170,6 +165,22 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                     VerticalHeight(
                       height: 20,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          DynamicFontSize(
+                            label: "Invoice # ${widget.invoiceModel.invoiceId}",
+                            fontSize: 14,
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalHeight(
+                      height: 20,
+                    ),
                     Card(
                       elevation: 4,
                       child: Column(
@@ -213,6 +224,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             text: 'Description',
                             text1: 'Rate',
                             text2: 'Qnt',
+                            text3: 'Amount',
                             color1: AppColors.primaryColor,
                             hasFirst: true,
                           ),
@@ -225,6 +237,9 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                                   text: e.name,
                                   text1: e.cost.toString(),
                                   text2: e.quantity.toString(),
+                                  text3:
+                                      "${int.parse(e.cost.toString()) * int.parse(e.quantity.toString())}"
+                                          .toString(),
                                   color1: AppColors.blackColor,
                                   hasFirst: true,
                                 ),
@@ -238,63 +253,119 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             height: 5,
                           ),
                           if (widget.invoiceModel.discountPrice!.value != "0")
-                            DescriptionWidget(
-                              text: 'Luram Epsum',
-                              text1: 'Discount',
-                              text2: widget.invoiceModel.discountPrice!.value
-                                  .toString(),
-                              color1: AppColors.blackColor,
-                              hasFirst: false,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: 'Discount',
+                                    color: AppColors.blackColor,
+                                  ),
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: widget
+                                        .invoiceModel.discountPrice!.value
+                                        .toString(),
+                                    color: AppColors.blackColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           VerticalHeight(
                             height: 5,
                           ),
                           if (widget.invoiceModel.discountPrice!.value != "0")
-                            DescriptionWidget(
-                              text: 'Luram Epsum',
-                              text1: 'Subtotal',
-                              text2: getSubTotalPrice(
-                                totalCost: int.parse(
-                                    widget.invoiceModel.totalCost.toString()),
-                                discountPrice: int.parse(widget
-                                    .invoiceModel.discountPrice!.value
-                                    .toString()),
-                              ).toString(),
-                              color1: AppColors.blackColor,
-                              hasFirst: false,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: 'Sub Total',
+                                    color: AppColors.blackColor,
+                                  ),
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: getSubTotalPrice(
+                                      totalCost: int.parse(widget
+                                          .invoiceModel.totalCost
+                                          .toString()),
+                                      discountPrice: int.parse(widget
+                                          .invoiceModel.discountPrice!.value
+                                          .toString()),
+                                    ).toString(),
+                                    color: AppColors.blackColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           VerticalHeight(
                             height: 5,
                           ),
                           if (widget.invoiceModel.tax!.rate != "0")
-                            DescriptionWidget(
-                              text: 'Luram Epsum',
-                              text1: 'Tax',
-                              text2: widget.invoiceModel.tax!.rate.toString() +
-                                  "%",
-                              color1: AppColors.blackColor,
-                              hasFirst: false,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: 'Tax',
+                                    color: AppColors.blackColor,
+                                  ),
+                                  DynamicFontSize(
+                                    fontSize: 12,
+                                    label: widget.invoiceModel.tax!.rate
+                                            .toString() +
+                                        "%",
+                                    color: AppColors.blackColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           VerticalHeight(
                             height: 5,
                           ),
-                          DescriptionWidget(
-                            text: 'Luram Epsum',
-                            text1: 'Total',
-                            text2: getTotalPrice(
-                                    subTotal: getSubTotalPrice(
-                                        totalCost: int.parse(widget
-                                            .invoiceModel.totalCost
-                                            .toString()),
-                                        discountPrice: int.parse(widget
-                                            .invoiceModel.discountPrice!.value
-                                            .toString())),
-                                    tax: double.parse(widget
-                                        .invoiceModel.tax!.rate
-                                        .toString()))
-                                .toString(),
-                            color1: AppColors.blackColor,
-                            hasFirst: false,
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 18.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DynamicFontSize(
+                                  fontSize: 12,
+                                  label: 'Total',
+                                  color: AppColors.blackColor,
+                                ),
+                                DynamicFontSize(
+                                  fontSize: 12,
+                                  label: getTotalPrice(
+                                          subTotal: getSubTotalPrice(
+                                              totalCost: int.parse(widget
+                                                  .invoiceModel.totalCost
+                                                  .toString()),
+                                              discountPrice: int.parse(widget
+                                                  .invoiceModel
+                                                  .discountPrice!
+                                                  .value
+                                                  .toString())),
+                                          tax: double.parse(widget
+                                              .invoiceModel.tax!.rate
+                                              .toString()))
+                                      .toString(),
+                                  color: AppColors.blackColor,
+                                ),
+                              ],
+                            ),
                           ),
                           VerticalHeight(
                             height: 10,
@@ -428,6 +499,6 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
   }
 
   double getTotalPrice({required int subTotal, required double tax}) {
-    return tax == 0.0 ? subTotal * 1.0 : subTotal * tax;
+    return subTotal + tax;
   }
 }

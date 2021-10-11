@@ -80,11 +80,6 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                                 label: "Tax",
                                 fontWeight: FontWeight.w700,
                               ),
-                              DynamicFontSize(
-                                fontSize: 14,
-                                label: "On the total",
-                                fontWeight: FontWeight.w700,
-                              ),
                             ])),
                     VerticalHeight(
                       height: 10,
@@ -98,23 +93,6 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                     VerticalHeight(
                       height: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: DynamicFontSize(
-                        fontSize: 14,
-                        label: 'Label',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    VerticalHeight(
-                      height: 10,
-                    ),
-                    Utiles.getStyledTextField(
-                        validator: (val) =>
-                            val.isEmpty ? "Field cannot be empty" : null,
-                        controller: _labelController,
-                        hint: "VAT",
-                        isNumber: false),
                     VerticalHeight(
                       height: 15,
                     ),
