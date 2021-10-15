@@ -5,18 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
-import 'package:invoiceapp/Views/pdf_screens/pdf_report.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
-import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/presentation/Views/pdf_screens/pdf_report.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
-import 'package:invoiceapp/elements/app_button.dart';
-import 'package:invoiceapp/elements/loading_widget.dart';
-import 'package:invoiceapp/elements/previewInvoiceScreen_elements/description_element.dart';
-import 'package:invoiceapp/elements/previewInvoiceScreen_elements/recharge_row_elements.dart';
-import 'package:invoiceapp/elements/previewInvoiceScreen_elements/row_elements.dart';
+import 'package:invoiceapp/presentation/elements/app_button.dart';
+import 'package:invoiceapp/presentation/elements/loading_widget.dart';
+import 'package:invoiceapp/presentation/elements/previewInvoiceScreen_elements/description_element.dart';
+import 'package:invoiceapp/presentation/elements/previewInvoiceScreen_elements/recharge_row_elements.dart';
+import 'package:invoiceapp/presentation/elements/previewInvoiceScreen_elements/row_elements.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../common/vertical_height.dart';
 
 class PreviewInvoiceScreen extends StatefulWidget {
   final InvoiceModel invoiceModel;
@@ -205,23 +207,24 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                                       widget.invoiceModel.dueDate.toString()))),
                             ],
                           ),
-                          SizedBox(
+                          VerticalHeight(
                             height: 10,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    VerticalHeight(
                       height: 30,
                     ),
                     Card(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
+                          VerticalHeight(
                             height: 5,
                           ),
-                          DescriptionWidget(
+
+                          DescriptionRow(
                             text: 'Beschreibung',
                             text1: 'Einzelpreis',
                             text2: 'Menge',
@@ -229,12 +232,16 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             color1: AppColors.primaryColor,
                             hasFirst: true,
                           ),
+
+
                           VerticalHeight(
                             height: 5,
                           ),
+
+
                           ...widget.invoiceModel.addItem!
                               .map(
-                                (e) => DescriptionWidget(
+                                (e) => DescriptionDetails(
                                   text: e.name,
                                   text1: e.cost.toString(),
                                   text2: e.quantity.toString(),

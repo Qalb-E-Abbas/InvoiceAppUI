@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/additems.dart';
-import 'package:invoiceapp/Views/paidinvoice.dart';
+import 'package:invoiceapp/presentation/Views/additems.dart';
+import 'package:invoiceapp/presentation/Views/paidinvoice.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
-import 'package:invoiceapp/elements/invoices_list_screens/Appbar.dart';
+import 'package:invoiceapp/presentation/elements/invoices_list_screens/Appbar.dart';
 
 import '../all_invoices.dart';
 import '../outstanding_screen.dart';

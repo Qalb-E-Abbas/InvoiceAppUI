@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/Bottom%20Navigation/bottomNavigation.dart';
-import 'package:invoiceapp/elements/navigation_dialog.dart';
+import 'package:invoiceapp/presentation/Views/Bottom%20Navigation/bottomNavigation.dart';
+import 'package:invoiceapp/presentation/elements/navigation_dialog.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 
-import '../configurations/AppColors.dart';
+import 'package:invoiceapp/configurations/AppColors.dart';
 
 class CustomAppBar extends StatefulWidget {
+
   final String? invoiceID;
 
   String text;

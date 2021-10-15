@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+
+import '../../common/vertical_height.dart';
 
 class AddItemContainer extends StatelessWidget {
   bool isDiscount = false;
@@ -62,25 +64,31 @@ class AddItemContainer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  VerticalHeight(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      DynamicFontSize(
-                        label: text4,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w100,
-                      ),
-                      isDiscount
-                          ? Text('')
-                          : DynamicFontSize(
-                              label: text5,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                    ],
+                  FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        
+                        FittedBox(
+                          child: DynamicFontSize(
+                            label: text4,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w100,
+                          ),
+                        ),
+                        
+                        isDiscount
+                            ? Text('')
+                            : DynamicFontSize(
+                                label: text5,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                      ],
+                    ),
                   ),
                 ],
               ),

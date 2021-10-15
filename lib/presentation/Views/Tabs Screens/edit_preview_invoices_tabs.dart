@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Views/previewinVoice.dart';
-import 'package:invoiceapp/common/custom_appBar.dart';
+import 'package:invoiceapp/presentation/Views/previewinVoice.dart';
+import 'package:invoiceapp/presentation/common/custom_appBar.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 
 import '../editinvoicescreen.dart';

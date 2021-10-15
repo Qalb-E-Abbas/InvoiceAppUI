@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/payment_instructions.dart';
+import 'package:invoiceapp/presentation/Views/payment_instructions.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 

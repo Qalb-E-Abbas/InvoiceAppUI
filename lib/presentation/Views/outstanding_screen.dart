@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
-import 'package:invoiceapp/elements/All%20Invoices/all_invoices_markaspaid.dart';
-import 'package:invoiceapp/elements/loading_widget.dart';
+import 'package:invoiceapp/presentation/elements/All%20Invoices/all_invoices_markaspaid.dart';
+import 'package:invoiceapp/presentation/elements/loading_widget.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 import 'package:provider/provider.dart';

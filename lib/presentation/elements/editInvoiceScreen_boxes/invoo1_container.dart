@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:invoiceapp/Views/additional_details_screen.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/Views/additional_details_screen.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
+
+import '../../common/vertical_height.dart';
 
 class invoo1_container extends StatelessWidget {
   String ClientName;
@@ -85,40 +87,42 @@ class invoo1_container extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
+              VerticalHeight(
+                height: 5,
               ),
               new Divider(
                 color: Colors.grey[300],
                 thickness: 1,
               ),
-              SizedBox(
-                height: 10,
+              VerticalHeight(
+                height: 5,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DynamicFontSize(
-                    label: text,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  DynamicFontSize(
-                    label: texdate,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w100,
-                  ),
-                  DynamicFontSize(
-                    label: text1,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  DynamicFontSize(
-                    label: DateFormat.yMd().format(DateTime.parse(text2)),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w100,
-                  ),
-                ],
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DynamicFontSize(
+                      label: text,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    DynamicFontSize(
+                      label: texdate,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w100,
+                    ),
+                    DynamicFontSize(
+                      label: text1,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    DynamicFontSize(
+                      label: DateFormat.yMd().format(DateTime.parse(text2)),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

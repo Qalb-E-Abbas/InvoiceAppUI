@@ -1,8 +1,8 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
-import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 
 class RechargeRowElements extends StatelessWidget {

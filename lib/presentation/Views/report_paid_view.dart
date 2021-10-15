@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
-import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/common/vertical_height.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:invoiceapp/infratstrucutre/services/invoice_services.dart';
 import 'package:provider/provider.dart';

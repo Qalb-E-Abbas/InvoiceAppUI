@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Views/report_client_view.dart';
-import 'package:invoiceapp/Views/report_paid_view.dart';
+import 'package:invoiceapp/presentation/Views/report_client_view.dart';
+import 'package:invoiceapp/presentation/Views/report_paid_view.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 
 class ReportScreenTabs extends StatefulWidget {

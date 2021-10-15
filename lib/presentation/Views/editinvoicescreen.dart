@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:invoiceapp/Views/adddiscount.dart';
-import 'package:invoiceapp/Views/additems.dart';
-import 'package:invoiceapp/Views/addtax.dart';
-import 'package:invoiceapp/common/vertical_height.dart';
-import 'package:invoiceapp/elements/editInvoiceScreen_boxes/additem_container.dart';
-import 'package:invoiceapp/elements/editInvoiceScreen_boxes/invoiceTo_container.dart';
-import 'package:invoiceapp/elements/editInvoiceScreen_boxes/invoo1_container.dart';
-import 'package:invoiceapp/elements/editInvoiceScreen_boxes/payment_instruction_container.dart';
+import 'package:invoiceapp/presentation/Views/adddiscount.dart';
+import 'package:invoiceapp/presentation/Views/additems.dart';
+import 'package:invoiceapp/presentation/Views/addtax.dart';
+import 'package:invoiceapp/presentation/common/vertical_height.dart';
+import 'package:invoiceapp/presentation/elements/editInvoiceScreen_boxes/additem_container.dart';
+import 'package:invoiceapp/presentation/elements/editInvoiceScreen_boxes/invoiceTo_container.dart';
+import 'package:invoiceapp/presentation/elements/editInvoiceScreen_boxes/invoo1_container.dart';
+import 'package:invoiceapp/presentation/elements/editInvoiceScreen_boxes/payment_instruction_container.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 
 class EditInvoicePage extends StatefulWidget {
@@ -39,9 +39,11 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
               text1: "Zahlbar bis",
               text2: widget.invoiceModel.dueDate.toString(),
             ),
+
             VerticalHeight(
               height: 5,
             ),
+
             InvoiceToContainer(
               ClientName: "Rechnung an:",
               invoiceID: widget.invoiceModel.docID.toString(),
@@ -49,9 +51,13 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
               text: widget.invoiceModel.clientModel!.name.toString(),
               text1: widget.invoiceModel.clientModel!.email.toString(),
             ),
+
+
             VerticalHeight(
-              height: 15,
+              height: 10,
             ),
+
+
             AddItemContainer(
               onTap: () {
                 Get.to(() => AddItemsScreen(
@@ -66,6 +72,9 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
                   "Klicken Sie auf das Bearbeiten-Symbol,\n um Änderungen vorzunehmen",
               text5: "price: ${widget.invoiceModel.totalCost.toString()}",
             ),
+
+
+
             AddItemContainer(
               onTap: () {
                 Get.to(() => AddDiscountScreen(

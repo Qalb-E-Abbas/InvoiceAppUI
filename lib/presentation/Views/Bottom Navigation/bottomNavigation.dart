@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:invoiceapp/Views/Tabs%20Screens/home_tabs.dart';
-import 'package:invoiceapp/Views/Tabs%20Screens/report_screens_tabs.dart';
-import 'package:invoiceapp/Views/businessdetail.dart';
-import 'package:invoiceapp/Views/chooseclient1.dart';
+import 'package:invoiceapp/presentation/Views/Tabs%20Screens/home_tabs.dart';
+import 'package:invoiceapp/presentation/Views/Tabs%20Screens/report_screens_tabs.dart';
+import 'package:invoiceapp/presentation/Views/businessdetail.dart';
+import 'package:invoiceapp/presentation/Views/chooseclient1.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
-import 'package:invoiceapp/elements/navigation_dialog.dart';
+import 'package:invoiceapp/presentation/elements/navigation_dialog.dart';
 import 'package:invoiceapp/generated/assets.dart';
 
 class BottomTab extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/sign_in.dart';
+import 'package:invoiceapp/presentation/Views/sign_in.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 
 class AppBarBox extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoiceapp/Views/chooseClient2.dart';
-import 'package:invoiceapp/common/dynamicFont.dart';
-import 'package:invoiceapp/common/vertical_height.dart';
+import 'package:invoiceapp/presentation/Views/chooseClient2.dart';
+import 'package:invoiceapp/presentation/common/dynamicFont.dart';
+import 'package:invoiceapp/presentation/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/infratstrucutre/models/client_model.dart';
 
