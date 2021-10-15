@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Booster.dynamicFontSize(
-                        label: "Sign Up",
+                        label: "Registrieren",
                         fontSize: 32,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff1E1A15),
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Booster.dynamicFontSize(
-                        label: "Create your patient account",
+                        label: "Benutzername verwenden",
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff6B6E74),
@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getTextFieldLabel('YOUR NAME'),
+                      getTextFieldLabel('Benutzername verwenden'),
                     ],
                   ),
                 ),
@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                   child: AuthTextField(
                     controller: _nameController,
                     validator: (val) =>
-                        val.isEmpty ? "Field Cannot be empty." : null,
+                        val.isEmpty ? "Feld darf nicht leer sein" : null,
                   ),
                 ),
                 Booster.verticalSpace(23),
@@ -118,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel('BUSINESS NAME'),
+                    child: getTextFieldLabel('Firmenname'),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -129,7 +129,7 @@ class _SignUpState extends State<SignUp> {
                     child: AuthTextField(
                       controller: _businessNameController,
                       validator: (val) =>
-                          val.isEmpty ? "Field Cannot be empty." : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                     ),
                   ),
                 ),
@@ -138,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel('WEBSITE'),
+                    child: getTextFieldLabel('Webseite'),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -166,7 +166,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel('PHONE NUMBER'),
+                    child: getTextFieldLabel('Telefonnummer'),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -181,7 +181,7 @@ class _SignUpState extends State<SignUp> {
                         ],
                         keyboardType: TextInputType.number,
                         validator: (val) =>
-                            val!.isEmpty ? "Field Cannot be empty." : null,
+                            val!.isEmpty ? "Feld darf nicht leer sein" : null,
                         decoration: InputDecoration(
                           hintTextDirection: TextDirection.ltr,
                           border: UnderlineInputBorder(
@@ -198,7 +198,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel('BUSINESS ADDRESS'),
+                    child: getTextFieldLabel('Adresse'),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -209,7 +209,7 @@ class _SignUpState extends State<SignUp> {
                     child: AuthTextField(
                       controller: _addressController,
                       validator: (val) =>
-                          val.isEmpty ? "Field Cannot be empty." : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                     ),
                   ),
                 ),
@@ -218,7 +218,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel('YOUR EMAIL'),
+                    child: getTextFieldLabel('Email'),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -238,7 +238,7 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: getTextFieldLabel("YOUR PASSWORD"),
+                    child: getTextFieldLabel("Passwort"),
                   ),
                 ),
                 Booster.verticalSpace(10),
@@ -250,7 +250,7 @@ class _SignUpState extends State<SignUp> {
                       controller: _pwdController,
                       isPasswordField: true,
                       validator: (val) =>
-                          val.isEmpty ? "Field Cannot be empty." : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                     ),
                   ),
                 ),
@@ -260,7 +260,7 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: AppButton(
-                      text: "Sign Up",
+                      text: "Registrieren",
                       onTap: () {
                         if (!_formKey.currentState!.validate()) {
                           return;
@@ -279,7 +279,8 @@ class _SignUpState extends State<SignUp> {
                       },
                     )),
                 Booster.verticalSpace(40),
-                _gettextrow(text: "Already have an account? ", text1: "Login"),
+                _gettextrow(
+                    text: "Already have an account? ", text1: "Einloggen"),
                 Booster.verticalSpace(40),
               ]),
             ),

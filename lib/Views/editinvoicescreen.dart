@@ -32,17 +32,18 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
               invoiceID: widget.invoiceModel.docID!,
               note: widget.invoiceModel.description.toString(),
               ClientName: widget.invoiceModel.invoiceId.toString(),
-              text: "Date",
-              texdate: DateFormat.yMEd()
+              text: "Rechnungsdatum",
+              dueDate: widget.invoiceModel.date.toString(),
+              texdate: DateFormat.yMd()
                   .format(DateTime.parse(widget.invoiceModel.date.toString())),
-              text1: "Due Date",
+              text1: "Zahlbar bis",
               text2: widget.invoiceModel.dueDate.toString(),
             ),
             VerticalHeight(
               height: 5,
             ),
             InvoiceToContainer(
-              ClientName: "Invoice to:",
+              ClientName: "Rechnung an:",
               invoiceID: widget.invoiceModel.docID.toString(),
               clientModel: widget.invoiceModel.clientModel!,
               text: widget.invoiceModel.clientModel!.name.toString(),
@@ -60,8 +61,9 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
                     ));
               },
               isDiscount: false,
-              text3: "Items",
-              text4: "Tap edit icon to edit items",
+              text3: "Artikel oder Dienstleistungen",
+              text4:
+                  "Klicken Sie auf das Bearbeiten-Symbol,\n um Änderungen vorzunehmen",
               text5: "price: ${widget.invoiceModel.totalCost.toString()}",
             ),
             AddItemContainer(
@@ -72,7 +74,7 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
                     discountPrice: widget.invoiceModel.discountPrice!));
               },
               isDiscount: true,
-              text3: 'Discount',
+              text3: 'Rabatt',
               text4: widget.invoiceModel.discountPrice!.value.toString(),
               text5: "",
             ),
@@ -85,16 +87,16 @@ class _EditInvoicePageState extends State<EditInvoicePage> {
                     ));
               },
               isDiscount: false,
-              text3: "Add tax",
+              text3: "Steuer bearbeiten",
               text4: widget.invoiceModel.tax!.name.toString(),
               text5: widget.invoiceModel.tax!.rate.toString(),
             ),
             PaymentInstructionContainer(
               invoiceID: widget.invoiceModel.docID.toString(),
               bankDetails: widget.invoiceModel.bankDetails!,
-              text: "Payment instruction",
+              text: "Zahlungsanweisungen",
               Client: widget.invoiceModel.bankDetails!.other!.toString(),
-              text2: "Edit information",
+              text2: "Informationen bearbeiten",
             ),
             VerticalHeight(
               height: 6,

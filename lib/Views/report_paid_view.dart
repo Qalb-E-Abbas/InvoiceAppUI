@@ -14,18 +14,18 @@ class ReportPaidView extends StatefulWidget {
 
 class _ReportPaidViewState extends State<ReportPaidView> {
   List<Months> monthList = [
-    Months(name: "January", id: "1"),
-    Months(name: "February", id: "2"),
-    Months(name: "March", id: "3"),
-    Months(name: "April", id: "4"),
-    Months(name: "May", id: "5"),
-    Months(name: "June", id: "6"),
-    Months(name: "July", id: "7"),
-    Months(name: "August", id: "8"),
-    Months(name: "September", id: "9"),
-    Months(name: "October", id: "10"),
-    Months(name: "November", id: "11"),
-    Months(name: "December", id: "12"),
+    Months(name: "Jan", id: "1"),
+    Months(name: "Feb", id: "2"),
+    Months(name: "Mär", id: "3"),
+    Months(name: "Apr", id: "4"),
+    Months(name: "Mai", id: "5"),
+    Months(name: "Jun", id: "6"),
+    Months(name: "Jul", id: "7"),
+    Months(name: "Aug", id: "8"),
+    Months(name: "Sep", id: "9"),
+    Months(name: "Okt", id: "10"),
+    Months(name: "Nov", id: "11"),
+    Months(name: "Dez", id: "12"),
   ];
   InvoiceServices _invoiceServices = InvoiceServices();
   int totalCost = 0;
@@ -68,13 +68,13 @@ class _ReportPaidViewState extends State<ReportPaidView> {
                                   fontWeight: FontWeight.w700),
                             ),
                             DynamicFontSize(
-                                label: 'Invoice',
+                                label: 'Rechnung',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
                             Container(
                               width: 70,
                               child: DynamicFontSize(
-                                  label: 'Paid',
+                                  label: 'bezahlt',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700),
                             )

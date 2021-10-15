@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen>
             },
             child: Column(
               children: <Widget>[
-                AppBarBox(text: "Invoices"),
+                AppBarBox(text: "Rechnungen"),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Padding(
@@ -94,15 +94,15 @@ class _HomeScreenState extends State<HomeScreen>
                               tabs: [
                                 // first tab [you can add an icon using the icon property]
                                 Tab(
-                                  text: 'All Invoices',
+                                  text: 'Alle Rechnungen',
                                 ),
 
                                 // second tab [you can add an icon using the icon property]
                                 Tab(
-                                  text: 'Outstanding',
+                                  text: 'offen',
                                 ),
                                 Tab(
-                                  text: 'Paid Invoice',
+                                  text: 'bezahlt',
                                 ),
                               ],
                             ),

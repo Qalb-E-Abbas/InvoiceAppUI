@@ -37,7 +37,7 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
         body: Column(
           children: [
             CustomAppBar(
-              text: "Invoice",
+              text: "Rechnung",
               isClient: true,
               invoiceID: widget.invoiceModel.docID.toString(),
             ),
@@ -65,12 +65,12 @@ class _EditPreviewInvoiceTabsState extends State<EditPreviewInvoiceTabs>
                 tabs: [
                   // first tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'Edit Invoice',
+                    text: 'Rechnung bearbeiten',
                   ),
 
                   // second tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'Preview invoice',
+                    text: 'Vorschaurechnung',
                   ),
                 ],
               ),

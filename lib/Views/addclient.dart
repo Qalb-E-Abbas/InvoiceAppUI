@@ -45,7 +45,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(text: "Add New client", isClient: false),
+                CustomAppBar(text: "Neuen Kunden hinzufügen", isClient: false),
                 SizedBox(
                   height: 30,
                 ),
@@ -62,9 +62,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 ),
                 Utiles.getStyledTextField(
                     validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null,
+                        val.isEmpty ? "Feld darf nicht leer sein" : null,
                     controller: _clientNameController,
-                    hint: "Enter client name",
+                    hint: "Geben Sie den Kundennamen ein",
                     isNumber: false),
                 VerticalHeight(
                   height: 20,
@@ -93,7 +93,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: DynamicFontSize(
                     fontSize: 16,
-                    label: "Phone Number",
+                    label: "Telefonnummer",
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -102,9 +102,8 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 ),
                 Utiles.getStyledTextField(
                     controller: _numberController,
-                    validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null,
-                    hint: "Enter phone number",
+                    validator: (val) {},
+                    hint: "Telefonnummer",
                     isNumber: true),
                 VerticalHeight(
                   height: 20,
@@ -122,8 +121,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 ),
                 Utiles.getStyledTextField(
                     controller: _faxController,
-                    validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null,
+                    validator: (val) {},
                     hint: "Enter fax number",
                     isNumber: true),
                 VerticalHeight(
@@ -133,7 +131,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: DynamicFontSize(
                     fontSize: 16,
-                    label: "Address",
+                    label: "Adresse",
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -142,8 +140,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 ),
                 Utiles.getStyledTextField(
                     controller: _addressController,
-                    validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null,
+                    validator: (val) {},
                     hint: "Enter address",
                     isNumber: false),
                 VerticalHeight(
@@ -181,7 +178,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                           }
                         });
                       },
-                      text: "Save Client",
+                      text: "Speichern",
                       colors: AppColors.primaryColor,
                       bordercolor: AppColors.primaryColor,
                       textcolor: Colors.white),

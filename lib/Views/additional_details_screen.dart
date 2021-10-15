@@ -16,6 +16,7 @@ import 'package:invoiceapp/application/total_cost.dart';
 import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/common/button.dart';
 import 'package:invoiceapp/common/custom_appBar.dart';
+import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/configurations/AppColors.dart';
 import 'package:invoiceapp/elements/navigation_dialog.dart';
@@ -29,15 +30,19 @@ import 'Bottom Navigation/bottomNavigation.dart';
 
 class AdditionalDetailsScreen extends StatefulWidget {
   final String invoiceID;
+  final String docID;
   final bool isUpdateView;
   final String note;
   final String date;
+  final String dueDate;
 
   const AdditionalDetailsScreen(
       {Key? key,
       required this.isUpdateView,
       required this.invoiceID,
+      required this.docID,
       required this.date,
+      required this.dueDate,
       required this.note})
       : super(key: key);
 
@@ -49,17 +54,21 @@ class AdditionalDetailsScreen extends StatefulWidget {
 class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
   InvoiceServices _invoiceServices = InvoiceServices();
   TextEditingController _noteController = TextEditingController();
+  TextEditingController _invoiceID = TextEditingController();
   String deviceID = "";
   FlutterSecureStorage _flutterSecureStorage = FlutterSecureStorage();
   Business _business = Business();
   bool isLoading = false;
-  DateTime selectedDate = DateTime.now();
+  DateTime dueDate = DateTime.now();
+  DateTime date = DateTime.now();
 
   @override
   void initState() {
     _noteController = TextEditingController(text: widget.note);
+    _invoiceID = TextEditingController(text: widget.invoiceID);
     if (widget.isUpdateView) {
-      selectedDate = DateTime.parse(widget.date);
+      dueDate = DateTime.parse(widget.dueDate);
+      date = DateTime.parse(widget.date);
     }
     getDeviceID().then((value) {
       deviceID = value!;
@@ -112,6 +121,34 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                 child: Column(
                   children: [
                     CustomAppBar(text: "Additional details", isClient: false),
+                    VerticalHeight(
+                      height: 30,
+                    ),
+                    if (widget.isUpdateView)
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        height: 70,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            keyboardType: TextInputType.text,
+                            controller: _invoiceID,
+                            decoration: InputDecoration(
+                                hintText: 'Invoice ID',
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide.none)),
+                          ),
+                        ),
+                      ),
+                    VerticalHeight(
+                      height: 20,
+                    ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       height: MediaQuery.of(context).size.height * 0.35,
@@ -126,7 +163,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                           keyboardType: TextInputType.text,
                           controller: _noteController,
                           decoration: InputDecoration(
-                              hintText: 'Note',
+                              hintText: 'Anmerkungen',
                               focusedBorder: InputBorder.none,
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide.none)),
@@ -135,6 +172,19 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                     ),
                     VerticalHeight(
                       height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          DynamicFontSize(
+                            label: "Rechnungsdatum",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
                     ),
                     VerticalHeight(
                       height: 20,
@@ -152,13 +202,58 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left: 12.0),
                               child: Text(
-                                DateFormat.yMd().format(selectedDate),
+                                DateFormat.yMd().format(date),
                               ),
                             ),
                             IconButton(
                               icon: Icon(Icons.date_range),
                               onPressed: () {
                                 _selectDate(context);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    VerticalHeight(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          DynamicFontSize(
+                            label: "Zahlbar bis",
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalHeight(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: AppColors.primaryColor)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              child: Text(
+                                DateFormat.yMd().format(dueDate),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.date_range),
+                              onPressed: () {
+                                _selectDueDate(context);
                               },
                             )
                           ],
@@ -182,14 +277,17 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                             if (widget.isUpdateView) {
                               _invoiceServices
                                   .updateInvoiceAdditionalInstruction(context,
-                                      invoiceID: widget.invoiceID,
+                                      invoiceID: _invoiceID.text,
                                       note: _noteController.text,
-                                      dueDate: selectedDate.toString())
+                                      date: date.toString(),
+                                      docID: widget.docID,
+                                      dueDate: dueDate.toString())
                                   .then((value) {
                                 isLoading = false;
                                 setState(() {});
                                 showNavigationDialog(context,
-                                    message: "Invoice Updated successfully.",
+                                    message:
+                                        "Rechnung erfolgreich aktualisiert",
                                     buttonText: "OKay", navigation: () {
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -209,8 +307,8 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                                           monthID:
                                               DateTime.now().month.toString(),
                                           invoiceId: "INV 00$invoiceCounter",
-                                          date: DateTime.now().toString(),
-                                          dueDate: selectedDate.toString(),
+                                          date: date.toString(),
+                                          dueDate: dueDate.toString(),
                                           description: _noteController.text,
                                           business: user.getUserDetails(),
                                           bankDetails:
@@ -243,7 +341,7 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
                               });
                             }
                           },
-                          text: "Save",
+                          text: "Speichern",
                           colors: AppColors.primaryColor,
                           bordercolor: AppColors.primaryColor,
                           textcolor: Colors.white),
@@ -256,16 +354,30 @@ class _AdditionalDetailsScreenState extends State<AdditionalDetailsScreen> {
         });
   }
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<Null> _selectDueDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: dueDate,
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2101));
     if (picked != null)
       setState(() {
-        selectedDate = picked;
+        dueDate = picked;
+        // _dateController.text = DateFormat.yMd().format(selectedDate);
+      });
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: date,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+    if (picked != null)
+      setState(() {
+        date = picked;
         // _dateController.text = DateFormat.yMd().format(selectedDate);
       });
   }

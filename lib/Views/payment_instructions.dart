@@ -59,7 +59,7 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(text: "Payment Instructions", isClient: false),
+            CustomAppBar(text: "Zahlungsanweisungen", isClient: false),
             VerticalHeight(
               height: 20,
             ),
@@ -75,7 +75,7 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: DynamicFontSize(
                       fontSize: 14,
-                      label: "Other",
+                      label: "Zahlungsinformationen",
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -84,9 +84,9 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                   ),
                   Utiles.getStyledTextField(
                       validator: (val) =>
-                          val.isEmpty ? "Field cannot be empty" : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                       controller: _toController,
-                      hint: "Additional payment instructions",
+                      hint: "Zahlungsanweisungen hinzufügen",
                       isNumber: false),
                   VerticalHeight(
                     height: 20,
@@ -94,7 +94,7 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: AppButton(
-                        text: "Next",
+                        text: "Weiter",
                         onTap: () async {
                           if (widget.isUpdateView) {
                             isLoading = true;
@@ -108,7 +108,7 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                               isLoading = false;
                               setState(() {});
                               await showNavigationDialog(context,
-                                  message: "Invoice Updated successfully.",
+                                  message: "Rechnung erfolgreich aktualisiert",
                                   buttonText: "OKay", navigation: () {
                                 Navigator.pushAndRemoveUntil(
                                     context,
@@ -123,6 +123,8 @@ class _PaymentInstructionScreenState extends State<PaymentInstructionScreen> {
                             Get.to(() => AdditionalDetailsScreen(
                                   date: "",
                                   note: "",
+                                  docID: '',
+                                  dueDate: '',
                                   isUpdateView: false,
                                   invoiceID: "",
                                 ));

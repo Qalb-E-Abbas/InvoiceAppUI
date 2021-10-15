@@ -158,20 +158,24 @@ class Business {
 class DiscountPrice {
   DiscountPrice({
     this.label,
+    this.type,
     this.value = "0",
   });
 
   String? label;
   String? value;
+  bool? type;
 
   factory DiscountPrice.fromJson(Map<String, dynamic> json) => DiscountPrice(
         label: json["label"],
         value: json["value"],
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "label": label,
         "value": value,
+        "type": type,
       };
 }
 

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:invoiceapp/application/add_item_provider.dart';
 import 'package:invoiceapp/application/add_tax_provider.dart';
@@ -40,8 +41,10 @@ class _MyAppState extends State<MyApp> {
         Permission.storage]); // it should print PermissionStatus.granted
   }
 
-  initState() {
+  @override
+  void initState() {
     getPermission();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.initState();
   }
 
@@ -70,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: GetMaterialApp(
+        title: "Invoice App",
         debugShowCheckedModeBanner: false,
         home: SignIn(),
       ),

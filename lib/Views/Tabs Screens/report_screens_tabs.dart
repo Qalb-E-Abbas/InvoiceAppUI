@@ -52,7 +52,7 @@ class _ReportScreenTabsState extends State<ReportScreenTabs>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Reports",
+                            "Übersicht",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -94,12 +94,12 @@ class _ReportScreenTabsState extends State<ReportScreenTabs>
                             tabs: [
                               // first tab [you can add an icon using the icon property]
                               Tab(
-                                text: 'Paid',
+                                text: 'bezahlt',
                               ),
 
                               // second tab [you can add an icon using the icon property]
                               Tab(
-                                text: 'Client',
+                                text: 'Kunde',
                               ),
                             ],
                           ),

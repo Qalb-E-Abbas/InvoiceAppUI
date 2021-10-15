@@ -87,7 +87,7 @@ class _DisplayMyClientsViewState extends State<DisplayMyClientsView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Client",
+                                "Kunde",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -110,7 +110,7 @@ class _DisplayMyClientsViewState extends State<DisplayMyClientsView> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
-                            "Clients",
+                            "Kunde",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,

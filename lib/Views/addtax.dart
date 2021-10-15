@@ -63,7 +63,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(text: "Add Tax", isClient: false),
+              CustomAppBar(text: "MwSt", isClient: false),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Column(
@@ -77,7 +77,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                             children: [
                               DynamicFontSize(
                                 fontSize: 14,
-                                label: "Tax",
+                                label: "MwSt",
                                 fontWeight: FontWeight.w700,
                               ),
                             ])),
@@ -86,9 +86,9 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                     ),
                     Utiles.getStyledTextField(
                         validator: (val) =>
-                            val.isEmpty ? "Field cannot be empty" : null,
+                            val.isEmpty ? "Feld darf nicht leer sein" : null,
                         controller: _nameController,
-                        hint: "Tax Name",
+                        hint: "Steuername",
                         isNumber: false),
                     VerticalHeight(
                       height: 15,
@@ -100,7 +100,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: DynamicFontSize(
                         fontSize: 14,
-                        label: "Rate",
+                        label: "Einzelpreis",
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -144,7 +144,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                                     new BorderSide(color: Colors.transparent)),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: "Enter Rate",
+                            hintText: "Rate hinzufügen",
                             hintStyle: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -159,7 +159,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Button(
-                        text: 'Save',
+                        text: 'Speichern',
                         colors: AppColors.primaryColor,
                         bordercolor: AppColors.primaryColor,
                         textcolor: Colors.white,
@@ -178,7 +178,7 @@ class _AddTaxScreenState extends State<AddTaxScreen> {
                               isLoading = false;
                               setState(() {});
                               showNavigationDialog(context,
-                                  message: "Invoice Updated successfully.",
+                                  message: "Rechnung erfolgreich aktualisiert",
                                   buttonText: "OKay", navigation: () {
                                 Navigator.pushAndRemoveUntil(
                                     context,

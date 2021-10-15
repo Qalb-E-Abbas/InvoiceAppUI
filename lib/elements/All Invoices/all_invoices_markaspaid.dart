@@ -111,7 +111,7 @@ class ContainerMarkAsPaid extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              !status ? "Mark as paid" : "Paid",
+                              !status ? "als bezahlt markieren" : "bezahlt",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,

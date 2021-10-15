@@ -47,7 +47,7 @@ class SignIn extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Booster.dynamicFontSize(
-                        label: "Login",
+                        label: "Einloggen",
                         fontSize: 32,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff1E1A15),
@@ -60,7 +60,7 @@ class SignIn extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Booster.dynamicFontSize(
-                        label: "Using your email and password",
+                        label: "Verwenden Sie Ihre E-Mail und Ihr Passwort",
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff6B6E74),
@@ -75,7 +75,7 @@ class SignIn extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Booster.dynamicFontSize(
-                          label: "YOUR EMAIL",
+                          label: "Email",
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
@@ -90,7 +90,7 @@ class SignIn extends StatelessWidget {
                     child: AuthTextField(
                       controller: _emailController,
                       validator: (val) =>
-                          val.isEmpty ? "Field cannot be empty" : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                     ),
                   ),
                 ),
@@ -104,7 +104,7 @@ class SignIn extends StatelessWidget {
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.black,
-                          label: "YOUR PASSWORD"),
+                          label: "Passwort"),
                     ],
                   ),
                 ),
@@ -117,7 +117,7 @@ class SignIn extends StatelessWidget {
                       controller: _pwdController,
                       isPasswordField: true,
                       validator: (val) =>
-                          val.isEmpty ? "Field cannot be empty" : null,
+                          val.isEmpty ? "Feld darf nicht leer sein" : null,
                     ),
                   ),
                 ),
@@ -125,7 +125,7 @@ class SignIn extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: AppButton(
-                    text: "Login",
+                    text: "Einloggen",
                     onTap: () {
                       print("Called");
                       if (!_formKey.currentState!.validate()) {
@@ -141,9 +141,9 @@ class SignIn extends StatelessWidget {
                   ),
                 ),
                 Booster.verticalSpace(67),
-                _gettext(text: "Forgot your passward?"),
+                _gettext(text: "Passwort vergessen"),
                 Booster.verticalSpace(12),
-                _gettextrow(text: "Don't have an account?", text1: "SignUp"),
+                _gettextrow(text: "Kein Konto", text1: "Registrieren"),
               ]),
             ),
           ),

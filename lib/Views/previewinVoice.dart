@@ -87,12 +87,12 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                       height: 10,
                     ),
                     rowElements(
-                      text: 'Invoice From',
+                      text: 'Rechnung von',
                       style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                           fontSize: 15),
-                      text1: 'Invoice To',
+                      text1: 'Rechnung an',
                       style1:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                     ),
@@ -171,7 +171,8 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           DynamicFontSize(
-                            label: "Invoice # ${widget.invoiceModel.invoiceId}",
+                            label:
+                                "Rechnung # ${widget.invoiceModel.invoiceId}",
                             fontSize: 14,
                             color: Colors.green,
                           ),
@@ -192,14 +193,14 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               RechargeRowElements(
-                                'Date',
+                                'Rechnungsdatum',
                                 DateFormat.yMEd()
                                     .format(DateTime.parse(
                                         widget.invoiceModel.date.toString()))
                                     .toString(),
                               ),
                               RechargeRowElements(
-                                  'Due Date',
+                                  'Zahlbar bis',
                                   DateFormat.yMEd().format(DateTime.parse(
                                       widget.invoiceModel.dueDate.toString()))),
                             ],
@@ -221,9 +222,9 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             height: 5,
                           ),
                           DescriptionWidget(
-                            text: 'Description',
-                            text1: 'Rate',
-                            text2: 'Qnt',
+                            text: 'Beschreibung',
+                            text1: 'Einzelpreis',
+                            text2: 'Menge',
                             text3: 'Amount',
                             color1: AppColors.primaryColor,
                             hasFirst: true,
@@ -253,28 +254,54 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                             height: 5,
                           ),
                           if (widget.invoiceModel.discountPrice!.value != "0")
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 18.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DynamicFontSize(
-                                    fontSize: 12,
-                                    label: 'Discount',
-                                    color: AppColors.blackColor,
-                                  ),
-                                  DynamicFontSize(
-                                    fontSize: 12,
-                                    label: widget
-                                        .invoiceModel.discountPrice!.value
-                                        .toString(),
-                                    color: AppColors.blackColor,
-                                  ),
-                                ],
+                            if (widget.invoiceModel.discountPrice!.type != true)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    DynamicFontSize(
+                                      fontSize: 12,
+                                      label: 'Rabatt',
+                                      color: AppColors.blackColor,
+                                    ),
+                                    DynamicFontSize(
+                                      fontSize: 12,
+                                      label: widget
+                                          .invoiceModel.discountPrice!.value
+                                          .toString(),
+                                      color: AppColors.blackColor,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                          if (widget.invoiceModel.discountPrice!.value != "0")
+                            if (widget.invoiceModel.discountPrice!.type == true)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    DynamicFontSize(
+                                      fontSize: 12,
+                                      label: 'Rabatt',
+                                      color: AppColors.blackColor,
+                                    ),
+                                    DynamicFontSize(
+                                      fontSize: 12,
+                                      label: widget
+                                              .invoiceModel.discountPrice!.value
+                                              .toString() +
+                                          " %",
+                                      color: AppColors.blackColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
                           VerticalHeight(
                             height: 5,
                           ),
@@ -288,16 +315,16 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                                 children: [
                                   DynamicFontSize(
                                     fontSize: 12,
-                                    label: 'Sub Total',
+                                    label: 'Zwischensumme',
                                     color: AppColors.blackColor,
                                   ),
                                   DynamicFontSize(
                                     fontSize: 12,
                                     label: getSubTotalPrice(
-                                      totalCost: int.parse(widget
+                                      totalCost: double.parse(widget
                                           .invoiceModel.totalCost
                                           .toString()),
-                                      discountPrice: int.parse(widget
+                                      discountPrice: double.parse(widget
                                           .invoiceModel.discountPrice!.value
                                           .toString()),
                                     ).toString(),
@@ -319,14 +346,13 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                                 children: [
                                   DynamicFontSize(
                                     fontSize: 12,
-                                    label: 'Tax',
+                                    label: 'MwSt',
                                     color: AppColors.blackColor,
                                   ),
                                   DynamicFontSize(
                                     fontSize: 12,
                                     label: widget.invoiceModel.tax!.rate
-                                            .toString() +
-                                        "%",
+                                        .toString(),
                                     color: AppColors.blackColor,
                                   ),
                                 ],
@@ -343,17 +369,17 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                               children: [
                                 DynamicFontSize(
                                   fontSize: 12,
-                                  label: 'Total',
+                                  label: 'Gesamt',
                                   color: AppColors.blackColor,
                                 ),
                                 DynamicFontSize(
                                   fontSize: 12,
                                   label: getTotalPrice(
                                           subTotal: getSubTotalPrice(
-                                              totalCost: int.parse(widget
+                                              totalCost: double.parse(widget
                                                   .invoiceModel.totalCost
                                                   .toString()),
-                                              discountPrice: int.parse(widget
+                                              discountPrice: double.parse(widget
                                                   .invoiceModel
                                                   .discountPrice!
                                                   .value
@@ -382,7 +408,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           DynamicFontSize(
-                            label: 'Payment Info',
+                            label: 'Zahlungsinformationen',
                             fontSize: 16,
                             color: AppColors.primaryColor,
                           ),
@@ -413,7 +439,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: DynamicFontSize(
                         fontSize: 14,
-                        label: 'Notes:',
+                        label: 'Anmerkungen:',
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -443,9 +469,9 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                   invoiceModel: widget.invoiceModel,
                   total: getTotalPrice(
                           subTotal: getSubTotalPrice(
-                              totalCost: int.parse(
+                              totalCost: double.parse(
                                   widget.invoiceModel.totalCost.toString()),
-                              discountPrice: int.parse(widget
+                              discountPrice: double.parse(widget
                                   .invoiceModel.discountPrice!.value
                                   .toString())),
                           tax: double.parse(
@@ -453,8 +479,8 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                       .toString(),
                   subTotal: getSubTotalPrice(
                     totalCost:
-                        int.parse(widget.invoiceModel.totalCost.toString()),
-                    discountPrice: int.parse(
+                        double.parse(widget.invoiceModel.totalCost.toString()),
+                    discountPrice: double.parse(
                         widget.invoiceModel.discountPrice!.value.toString()),
                   ).toString(),
                 );
@@ -466,7 +492,7 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
                 //   print(onError);
                 // });
               },
-              text: "Share"),
+              text: "Teilen"),
         ],
       ),
     );
@@ -493,12 +519,17 @@ class _PreviewInvoiceScreenState extends State<PreviewInvoiceScreen> {
     );
   }
 
-  int getSubTotalPrice({required int totalCost, required int discountPrice}) {
+  double getSubTotalPrice(
+      {required double totalCost, required double discountPrice}) {
     print(discountPrice);
-    return totalCost - discountPrice;
+    if (widget.invoiceModel.discountPrice!.type == true) {
+      return totalCost - (discountPrice / 100);
+    } else {
+      return totalCost.toDouble() - discountPrice.toDouble();
+    }
   }
 
-  double getTotalPrice({required int subTotal, required double tax}) {
+  double getTotalPrice({required double subTotal, required double tax}) {
     return subTotal + tax;
   }
 }

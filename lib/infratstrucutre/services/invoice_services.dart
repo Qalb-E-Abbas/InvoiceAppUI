@@ -136,12 +136,16 @@ class InvoiceServices {
   Future<void> updateInvoiceAdditionalInstruction(BuildContext context,
       {required String invoiceID,
       required String note,
+      required String date,
+      required String docID,
       required String dueDate}) async {
     Provider.of<AppState>(context, listen: false)
         .stateStatus(StateStatus.IsBusy);
-    return await invoiceCollection.doc(invoiceID).update({
+    return await invoiceCollection.doc(docID).update({
       "description": note,
       "dueDate": dueDate,
+      "date": date,
+      "invoiceID": invoiceID,
     }).then((value) {
       Provider.of<AppState>(context, listen: false)
           .stateStatus(StateStatus.IsFree);

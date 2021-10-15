@@ -13,7 +13,7 @@ Future showNavigationDialog(BuildContext context,
       builder: (context) {
         return CupertinoAlertDialog(
           title: Text(
-            "Message",
+            "Hinweis",
             style: TextStyle(color: Colors.green[900]),
           ),
           content: Text(message),

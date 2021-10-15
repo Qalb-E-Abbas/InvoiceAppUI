@@ -14,6 +14,7 @@ class invoo1_container extends StatelessWidget {
   String texdate;
   String invoiceID;
   String note;
+  String dueDate;
 
   invoo1_container(
       {required this.ClientName,
@@ -22,6 +23,7 @@ class invoo1_container extends StatelessWidget {
       required this.text2,
       required this.invoiceID,
       required this.note,
+      required this.dueDate,
       required this.texdate});
 
   @override
@@ -66,7 +68,9 @@ class invoo1_container extends StatelessWidget {
                       onTap: () {
                         Get.to(() => AdditionalDetailsScreen(
                             isUpdateView: true,
-                            invoiceID: invoiceID,
+                            docID: invoiceID,
+                            dueDate: dueDate,
+                            invoiceID: ClientName,
                             date: text2,
                             note: note));
                       },
@@ -110,7 +114,7 @@ class invoo1_container extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                   DynamicFontSize(
-                    label: DateFormat.yMEd().format(DateTime.parse(text2)),
+                    label: DateFormat.yMd().format(DateTime.parse(text2)),
                     fontSize: 12,
                     fontWeight: FontWeight.w100,
                   ),

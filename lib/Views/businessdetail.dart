@@ -95,7 +95,7 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Business Details",
+                              "Ihre Informationen",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -159,15 +159,15 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                   height: 20,
                 ),
                 BusinessDetailsField(
-                    label: "Business Name",
+                    label: "Firmenname",
                     controller: _nameController,
                     validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null),
+                        val.isEmpty ? "Feld darf nicht leer sein" : null),
                 BusinessDetailsField(
-                    label: "Owner Name",
+                    label: "Ihrname",
                     controller: _ownerController,
                     validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null),
+                        val.isEmpty ? "Feld darf nicht leer sein" : null),
                 Card(
                   elevation: 3,
                   child: TextFormField(
@@ -179,7 +179,7 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                     validator: (val) =>
                         val!.isEmpty ? "Field Cannot be empty." : null,
                     decoration: InputDecoration(
-                      labelText: "Business Number",
+                      labelText: "Telefonnummer",
                       filled: true,
                       fillColor: Colors.white,
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -187,12 +187,12 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                   ),
                 ),
                 BusinessDetailsField(
-                    label: "Address",
+                    label: "Adresse",
                     controller: _addressController,
                     validator: (val) =>
-                        val.isEmpty ? "Field cannot be empty" : null),
+                        val.isEmpty ? "Feld darf nicht leer sein" : null),
                 BusinessDetailsField(
-                    label: "Business Website",
+                    label: "Webseite",
                     controller: _websiteController,
                     validator: (val) {
                       if (val.isNotEmpty) {
@@ -283,7 +283,7 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
                           });
                         }
                       },
-                      text: "Save",
+                      text: "Speichern",
                       colors: AppColors.primaryColor,
                       bordercolor: AppColors.primaryColor,
                       textcolor: Colors.white),

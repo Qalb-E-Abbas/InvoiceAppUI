@@ -87,7 +87,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomAppBar(text: "Add Item", isClient: false),
+                  CustomAppBar(
+                      text: "Artikel oder Dienstleistung hinzufügen",
+                      isClient: false),
                   ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -103,7 +105,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                     left: 10, right: 10, top: 8),
                                 child: DynamicFontSize(
                                   fontSize: 14,
-                                  label: "Item Name or Service Description",
+                                  label: "Artikelname oder Servicebeschreibung",
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -112,10 +114,10 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                               ),
                               Utiles.getStyledTextField(
                                   validator: (val) => val.isEmpty
-                                      ? "Field cannot be empty"
+                                      ? "Feld darf nicht leer sein"
                                       : null,
                                   controller: sizePriceQuantityModel[i].name,
-                                  hint: "item or service description",
+                                  hint: "Artikel- oder Leistungsbeschreibung",
                                   isNumber: false),
                               VerticalHeight(
                                 height: 15,
@@ -125,7 +127,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                     const EdgeInsets.only(left: 10, right: 10),
                                 child: DynamicFontSize(
                                   fontSize: 14,
-                                  label: "Quantity",
+                                  label: "Stückkosten",
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -151,7 +153,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
                                     validator: (val) => val!.isEmpty
-                                        ? "Field Cannot be empty."
+                                        ? "Feld darf nicht leer sein"
                                         : null,
                                     controller:
                                         sizePriceQuantityModel[i].quantity,
@@ -176,7 +178,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                               color: Colors.transparent)),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      hintText: "Enter Quantity",
+                                      hintText: "Anzahl",
                                       hintStyle: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -193,7 +195,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                     const EdgeInsets.only(left: 10, right: 10),
                                 child: DynamicFontSize(
                                   fontSize: 14,
-                                  label: "Unit cost",
+                                  label: "Stückkosten",
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -219,7 +221,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
                                     validator: (val) => val!.isEmpty
-                                        ? "Field Cannot be empty."
+                                        ? "Feld darf nicht leer sein"
                                         : null,
                                     controller: sizePriceQuantityModel[i].cost,
                                     inputFormatters: [
@@ -262,7 +264,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Button(
-                      text: "Add More",
+                      text: "mehr hinzufügen",
                       colors: AppColors.primaryColor,
                       bordercolor: AppColors.primaryColor,
                       textcolor: Colors.white,
@@ -279,7 +281,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Button(
-                      text: 'Save',
+                      text: 'Speichern',
                       colors: AppColors.primaryColor,
                       bordercolor: AppColors.primaryColor,
                       textcolor: Colors.white,
@@ -312,7 +314,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                             isLoading = false;
                             setState(() {});
                             showNavigationDialog(context,
-                                message: "Invoice Updated successfully.",
+                                message: "Rechnung erfolgreich aktualisiert",
                                 buttonText: "OKay", navigation: () {
                               itemProvider.clearList();
                               Navigator.pushAndRemoveUntil(

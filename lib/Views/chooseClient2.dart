@@ -78,7 +78,7 @@ class _ChooseClient2State extends State<ChooseClient2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomAppBar(text: "Client", isClient: false),
+                CustomAppBar(text: "Kunde", isClient: false),
                 VerticalHeight(
                   height: 20,
                 ),
@@ -90,7 +90,7 @@ class _ChooseClient2State extends State<ChooseClient2> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          "Clients",
+                          "Kunde",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -184,7 +184,7 @@ class _ChooseClient2State extends State<ChooseClient2> {
                                                 setState(() {});
                                                 showNavigationDialog(context,
                                                     message:
-                                                        "Invoice Updated successfully.",
+                                                        "Rechnung erfolgreich aktualisiert",
                                                     buttonText: "OKay",
                                                     navigation: () {
                                                   Navigator.pushAndRemoveUntil(

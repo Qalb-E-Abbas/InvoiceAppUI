@@ -71,13 +71,13 @@ class _ReportClientViewState extends State<ReportClientView> {
                                   fontWeight: FontWeight.w700),
                             ),
                             DynamicFontSize(
-                                label: 'Invoice',
+                                label: 'Rechnung',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
                             Container(
                               width: 90,
                               child: DynamicFontSize(
-                                  label: 'Paid',
+                                  label: 'bezahlt',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700),
                             )

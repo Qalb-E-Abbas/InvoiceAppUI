@@ -38,10 +38,15 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
   var _prcntController = TextEditingController();
   bool isLoading = false;
   InvoiceServices _invoiceServices = InvoiceServices();
+  bool isPercentage = true;
+
+  String _selectedTax = '';
+  List<String> taxList = ["Percentage (%)", "Flat Amount"];
 
   @override
   void initState() {
     // TODO: implement initState
+    _selectedTax = "Percentage (%)";
     _prcntController = TextEditingController(text: widget.discountPrice.value);
     super.initState();
   }
@@ -67,22 +72,10 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                       children: [
                         DynamicFontSize(
                           fontSize: 13,
-                          label: "Discount Type",
+                          label: "Rabattart",
                           fontWeight: FontWeight.w700,
                         ),
-                        Row(
-                          children: [
-                            DynamicFontSize(
-                              fontSize: 13,
-                              label: "Flat Amount or % (select one)",
-                              fontWeight: FontWeight.w700,
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: AppColors.primaryColor,
-                            )
-                          ],
-                        ),
+                        _getRoleDropDown(context),
                       ])),
               VerticalHeight(
                 height: 20,
@@ -127,7 +120,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                               new BorderSide(color: Colors.transparent)),
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: "Enter Discount Amount",
+                      hintText: "Rabattbetrag eingeben",
                       hintStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -145,7 +138,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Button(
-                  text: 'Save',
+                  text: 'Speichern',
                   colors: AppColors.primaryColor,
                   bordercolor: AppColors.primaryColor,
                   textcolor: Colors.white,
@@ -166,6 +159,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                               invoiceID: widget.invoiceID.toString(),
                               discountPrice: DiscountPrice(
                                   label: "",
+                                  type: isPercentage,
                                   value: _prcntController.text == ""
                                       ? "0"
                                       : _prcntController.text))
@@ -173,7 +167,7 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                         isLoading = false;
                         setState(() {});
                         showNavigationDialog(context,
-                            message: "Invoice Updated successfully.",
+                            message: "Rechnung erfolgreich aktualisiert",
                             buttonText: "OKay", navigation: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -186,7 +180,9 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
                       });
                     } else {
                       discountProvider.saveDiscount(DiscountPrice(
-                          label: "", value: _prcntController.text));
+                          type: isPercentage,
+                          label: "",
+                          value: _prcntController.text));
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -201,6 +197,48 @@ class _AddDiscountScreenState extends State<AddDiscountScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _getRoleDropDown(BuildContext context) {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: AppColors.primaryColor)),
+      child: FittedBox(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              child: Padding(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: DropdownButton<String>(
+                  value: _selectedTax == "" ? null : _selectedTax,
+                  items: taxList.map((value) {
+                    return DropdownMenuItem<String>(
+                      child: Text(value),
+                      value: value,
+                    );
+                  }).toList(),
+                  onChanged: (item) {
+                    _selectedTax = item!;
+                    if (item == "Flat Amount") {
+                      isPercentage = false;
+                    } else {
+                      isPercentage = true;
+                    }
+                    setState(() {});
+                    print(isPercentage);
+                  },
+                  underline: SizedBox(),
+                  hint: Text("Pauschal oder Prozentsatz (auswählen)"),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

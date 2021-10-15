@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart' as material;
+import 'package:intl/intl.dart';
 import 'package:invoiceapp/Views/pdf_screens/pdf_viewer_page.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,7 +26,7 @@ reportView(context,
             // decoration: const BoxDecoration(
             // border:
             //     BoxBorder(bottom: true, width: 0.5, color: PdfColors.grey)),
-            child: Text('INVOICE',
+            child: Text('Rechnung',
                 style: Theme.of(context)
                     .defaultTextStyle
                     .copyWith(color: PdfColors.grey)));
@@ -45,20 +46,34 @@ reportView(context,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('INVOICE', textScaleFactor: 2),
+                      Text(
+                        'Rechnung',
+                        textScaleFactor: 2,
+                        style: TextStyle(
+                            color: PdfColor.fromHex('#56ae6a'),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
                     ])),
-            Text(invoiceModel.business!.name.toString(), textScaleFactor: 3),
             SizedBox(height: 20),
-            Text('INVOICE # ${invoiceModel.invoiceId.toString()}',
-                textScaleFactor: 2),
-            Header(
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Header(
                 level: 1,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Header(level: 1, text: 'Invoice From'),
-                      Header(level: 1, text: 'Invoice To'),
-                    ])),
+                text: 'Rechnung von',
+                textStyle: TextStyle(
+                    color: PdfColor.fromHex('#56ae6a'),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+              Header(
+                level: 1,
+                text: 'Rechnung an',
+                textStyle: TextStyle(
+                    color: PdfColor.fromHex('#56ae6a'),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ]),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Paragraph(text: invoiceModel.business!.ownerName.toString()),
               Paragraph(text: invoiceModel.clientModel!.name.toString()),
@@ -78,21 +93,44 @@ reportView(context,
             SizedBox(
               height: 20,
             ),
-            Divider(),
+            Text('Rechnung # ${invoiceModel.invoiceId.toString()}',
+                style: TextStyle(
+                    color: PdfColor.fromHex('#56ae6a'),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+                textScaleFactor: 1),
             SizedBox(
               height: 20,
             ),
-            Header(
-                level: 1,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Date', textScaleFactor: 1),
-                      Text('Due Date', textScaleFactor: 1),
-                    ])),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Paragraph(text: invoiceModel.date.toString()),
-              Paragraph(text: invoiceModel.dueDate.toString()),
+              Text(
+                'Rechnungsdatum',
+                textScaleFactor: 1,
+                style: TextStyle(
+                    color: PdfColor.fromHex('#56ae6a'),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+              Text(
+                'Zahlbar bis',
+                textScaleFactor: 1,
+                style: TextStyle(
+                    color: PdfColor.fromHex('#56ae6a'),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Paragraph(
+                text: DateFormat.yMEd()
+                    .format(DateTime.parse(invoiceModel.date.toString()))
+                    .toString(),
+              ),
+              Paragraph(
+                text: DateFormat.yMEd()
+                    .format(DateTime.parse(invoiceModel.dueDate.toString()))
+                    .toString(),
+              ),
             ]),
             SizedBox(
               height: 20,
@@ -106,9 +144,10 @@ reportView(context,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Description', textScaleFactor: 1),
-                      Text('Quantity', textScaleFactor: 1),
-                      Text('Per Unit Cost', textScaleFactor: 1),
+                      Text('Beschreibung', textScaleFactor: 1),
+                      Text('Einzelpreis', textScaleFactor: 1),
+                      Text('Menge', textScaleFactor: 1),
+                      Text('Amount', textScaleFactor: 1),
                     ])),
             ...invoiceModel.addItem!
                 .map(
@@ -116,38 +155,71 @@ reportView(context,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Paragraph(text: e.name.toString()),
-                        Paragraph(text: e.quantity.toString()),
                         Paragraph(text: e.cost.toString()),
+                        Paragraph(text: e.quantity.toString()),
+                        Paragraph(
+                          text:
+                              "${int.parse(e.cost.toString()) * int.parse(e.quantity.toString())}"
+                                  .toString(),
+                        ),
                       ]),
                 )
                 .toList(),
             Divider(),
             if (invoiceModel.discountPrice!.value != "0")
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Paragraph(text: "Discount"),
-                Paragraph(text: invoiceModel.discountPrice!.value.toString()),
-              ]),
+              if (invoiceModel.discountPrice!.type == true)
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Paragraph(text: "Rabatt"),
+                      Paragraph(
+                          text: invoiceModel.discountPrice!.value.toString() +
+                              " %"),
+                    ]),
+            if (invoiceModel.discountPrice!.value != "0")
+              if (invoiceModel.discountPrice!.type != true)
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Paragraph(text: "Rabatt"),
+                      Paragraph(
+                          text: invoiceModel.discountPrice!.value.toString()),
+                    ]),
             if (invoiceModel.discountPrice!.value != "0")
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Paragraph(text: "Sub Total"),
+                Paragraph(text: "Zwischensumme"),
                 Paragraph(text: subTotal),
               ]),
             if (invoiceModel.tax!.rate != "0")
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Paragraph(text: "Tax"),
-                Paragraph(text: invoiceModel.tax!.rate.toString() + " %"),
+                Paragraph(text: "MwSt"),
+                Paragraph(text: invoiceModel.tax!.rate.toString()),
               ]),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Paragraph(text: "Total"),
+              Paragraph(text: "Gesamt"),
               Paragraph(text: total),
             ]),
             Divider(),
-            Header(level: 1, text: 'Payment Info'),
+            Header(
+              level: 1,
+              text: 'Zahlungsinformationen',
+              textStyle: TextStyle(
+                  color: PdfColor.fromHex('#56ae6a'),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15),
+            ),
             Paragraph(text: invoiceModel.bankDetails!.other.toString()),
             SizedBox(
               height: 20,
             ),
-            Header(level: 1, text: 'Notes'),
+            Header(
+              level: 1,
+              text: 'Anmerkungen',
+              textStyle: TextStyle(
+                  color: PdfColor.fromHex('#56ae6a'),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15),
+            ),
             Paragraph(text: invoiceModel.description.toString()),
           ]));
   //save PDF
