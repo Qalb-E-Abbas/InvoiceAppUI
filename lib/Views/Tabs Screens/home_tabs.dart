@@ -90,11 +90,12 @@ class _HomeScreenState extends State<HomeScreen>
                                 color: Colors.green,
                               ),
                               labelColor: Colors.white,
+
                               unselectedLabelColor: Colors.black,
                               tabs: [
                                 // first tab [you can add an icon using the icon property]
                                 Tab(
-                                  text: 'Alle Rechnungen',
+                                  text: 'Alle\nRechnungen',
                                 ),
 
                                 // second tab [you can add an icon using the icon property]

@@ -42,9 +42,11 @@ class InvoiceServices {
   }
 
   ///Get Monthly Invoice
-  Stream<List<InvoiceModel>> streamMonthlyInvoice(String monthID) {
+  Stream<List<InvoiceModel>> streamMonthlyInvoice(String monthID, String myID) {
+    print(myID);
     return invoiceCollection
         .where('monthID', isEqualTo: monthID)
+        .where('deviceID', isEqualTo: myID)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => InvoiceModel.fromJson(e.data())).toList());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoiceapp/application/uid_provider.dart';
 import 'package:invoiceapp/common/dynamicFont.dart';
 import 'package:invoiceapp/common/vertical_height.dart';
 import 'package:invoiceapp/infratstrucutre/models/invoice_model.dart';
@@ -33,6 +34,7 @@ class _ReportPaidViewState extends State<ReportPaidView> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -88,8 +90,9 @@ class _ReportPaidViewState extends State<ReportPaidView> {
                         child: ListView.separated(
                             itemBuilder: (ctx, i) {
                               return StreamProvider.value(
-                                value: _invoiceServices
-                                    .streamMonthlyInvoice(monthList[i].id),
+                                value: _invoiceServices.streamMonthlyInvoice(
+                                    monthList[i].id,
+                                    user.getUserDetails().docID.toString()),
                                 initialData: [InvoiceModel()],
                                 builder: (context, child) {
                                   return Padding(

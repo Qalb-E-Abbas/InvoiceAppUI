@@ -29,6 +29,7 @@ class InvoiceModel {
     this.bankDetails,
     this.docID,
     this.monthID,
+    this.uid,
     this.deviceID,
   });
 
@@ -37,7 +38,7 @@ class InvoiceModel {
   String? docID;
   String? deviceID;
   String? monthID;
-
+  String? uid;
   String? totalCost;
   String? date;
   String? dueDate;
@@ -56,6 +57,7 @@ class InvoiceModel {
         docID: json["docID"],
         date: json["date"],
         dueDate: json["dueDate"],
+        uid: json["uid"],
         deviceID: json["deviceID"],
         monthID: json["monthID"],
         description: json["description"],
@@ -76,6 +78,7 @@ class InvoiceModel {
         "totalCost": totalCost,
         "docID": docID,
         "monthID": monthID,
+        "uid": uid,
         "date": date,
         "dueDate": dueDate,
         "deviceID": deviceID,
